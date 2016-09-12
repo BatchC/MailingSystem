@@ -95,7 +95,7 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
                     public boolean onMenuItemActionCollapse(MenuItem item) {
                         // Do something when collapsed
                         mAdapter.animateTo(previousMailModelList);
-//                        recyclerView.scrollToPosition(0);
+                        recyclerView.scrollToPosition(0);
                         return true; // Return true to collapse action view
                     }
 

@@ -1,5 +1,6 @@
 package rohitnahata.mailingsystem;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,47 +9,27 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 
 import java.util.List;
 
-import rohitnahata.mailingsystem.databinding.PreviousMailsRecyclerBinding;
-
-//public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdapter.MyViewHolder> {
-public class PreviousMailsAdapter extends SortedListAdapter<PreviousMailModel> {
+public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdapter.MyViewHolder> {
 
     String letter;
     int color;
     ColorGenerator generator = ColorGenerator.MATERIAL;
     private List<PreviousMailModel> previousMailModelList;
 
-    @Override
-    protected ViewHolder<? extends PreviousMailModel> onCreateViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i) {
-        final PreviousMailsRecyclerBinding binding = PreviousMailsRecyclerBinding.inflate(layoutInflater, viewGroup, false);
-        return new MyViewHolder(binding);
-    }
 
-//
-//    public PreviousMailsAdapter(List<PreviousMailModel> previousMailModelList) {
-//        this.previousMailModelList = previousMailModelList;
-//    }
-//
-//    @Override
-//    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        final View itemView = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.previous_mails_recycler, parent, false);
-//
-//        return new MyViewHolder(itemView);
-//    }
-
-    @Override
-    protected boolean areItemsTheSame(PreviousMailModel previousMailModel, PreviousMailModel t1) {
-        return false;
+    public PreviousMailsAdapter(List<PreviousMailModel> previousMailModelList) {
+        this.previousMailModelList = previousMailModelList;
     }
 
     @Override
-    protected boolean areItemContentsTheSame(PreviousMailModel previousMailModel, PreviousMailModel t1) {
-        return false;
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.previous_mails_recycler, parent, false);
+
+        return new MyViewHolder(itemView);
     }
 
     @Override
@@ -93,7 +74,7 @@ public class PreviousMailsAdapter extends SortedListAdapter<PreviousMailModel> {
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
-            notifyDataSetChanged();
+//            notifyDataSetChanged();
         }
     }
 
@@ -104,7 +85,8 @@ public class PreviousMailsAdapter extends SortedListAdapter<PreviousMailModel> {
             if (!previousMailModelList.contains(model)) {
                 addItem(i, model);
             }
-        }notifyDataSetChanged();
+        }
+//        notifyDataSetChanged();
     }
 
     private void applyAndAnimateMovedItems(List<PreviousMailModel> newModels) {
@@ -115,43 +97,35 @@ public class PreviousMailsAdapter extends SortedListAdapter<PreviousMailModel> {
             if (fromPosition >= 0 && fromPosition != toPosition) {
                 moveItem(fromPosition, toPosition);
             }
-        }notifyDataSetChanged();
+        }
+//        notifyDataSetChanged();
     }
 
     public PreviousMailModel removeItem(int position) {
         final PreviousMailModel model = previousMailModelList.remove(position);
-        notifyDataSetChanged();
-//        notifyItemRemoved(position);
+        notifyItemRemoved(position);
+//        notifyDataSetChanged();
         return model;
     }
 
     public void addItem(int position, PreviousMailModel model) {
         previousMailModelList.add(position, model);
-        notifyDataSetChanged();
-//        notifyItemInserted(position);
+        notifyItemInserted(position);
+//        notifyDataSetChanged();
+
     }
 
     public void moveItem(int fromPosition, int toPosition) {
         final PreviousMailModel model = previousMailModelList.remove(fromPosition);
         previousMailModelList.add(toPosition, model);
-        notifyDataSetChanged();
-//        notifyItemMoved(fromPosition, toPosition);
+        notifyItemMoved(fromPosition, toPosition);
+//        notifyDataSetChanged();
+
     }
 
-    //    public class MyViewHolder extends RecyclerView.ViewHolder {
-    public class MyViewHolder extends SortedListAdapter.ViewHolder<PreviousMailModel> {
-        private final PreviousMailsRecyclerBinding mBinding;
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView time, subjectText, bodyText, recipientText;
         public ImageView nameImage, attachmentPresent;
-
-        public MyViewHolder(PreviousMailsRecyclerBinding binding) {
-            super(binding.getRoot());
-            mBinding = binding;
-        }
-
-//        public void bind(PreviousMailsRecyclerBinding item) {
-//            item.setModel(mBinding);
-//        }
 
         public MyViewHolder(View view) {
             super(view);
@@ -161,13 +135,6 @@ public class PreviousMailsAdapter extends SortedListAdapter<PreviousMailModel> {
             bodyText = (TextView) view.findViewById(R.id.bodyText);
             nameImage = (ImageView) view.findViewById(R.id.nameImage);
             attachmentPresent = (ImageView) view.findViewById(R.id.attachmentPresent);
-            mBinding = null;
-        }
-
-        @Override
-        protected void performBind(PreviousMailModel previousMailModel) {
-            mBinding.setModel(previousMailModel);
-
         }
 
 

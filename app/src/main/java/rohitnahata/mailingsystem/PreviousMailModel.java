@@ -1,13 +1,11 @@
 package rohitnahata.mailingsystem;
 
-import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
-
 import java.util.ArrayList;
 
 /**
  * Created by Rohit on 06/09/2016.
  */
-public class PreviousMailModel implements SortedListAdapter.ViewModel {
+public class PreviousMailModel {
     String strRecipients;
     String strSubject;
     String strBody;
@@ -82,7 +80,9 @@ public class PreviousMailModel implements SortedListAdapter.ViewModel {
 
         PreviousMailModel that = (PreviousMailModel) o;
 
-        return getStrRecipients().equals(that.getStrRecipients()) &&
+        return
+//                getIntId() == that.getIntId() &&
+                getStrRecipients().equals(that.getStrRecipients()) &&
                 getStrSubject().equals(that.getStrSubject()) &&
                 getStrBody().equals(that.getStrBody()) &&
                 getStrTime_sent().equals(that.getStrTime_sent()) &&
@@ -98,7 +98,6 @@ public class PreviousMailModel implements SortedListAdapter.ViewModel {
         result = 31 * result + getStrBody().hashCode();
         result = 31 * result + getStrTime_sent().hashCode();
         result = 31 * result + (getStrAttachments() != null ? getStrAttachments().hashCode() : 0);
-//        result = 31 * result + getIntId();
         return result;
     }
 
