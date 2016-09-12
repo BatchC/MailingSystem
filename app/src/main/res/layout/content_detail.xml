@@ -2,12 +2,12 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="rohitnahata.previousmails.DetailActivity"
+    tools:context="rohitnahata.mailingsystem.Activities.DetailActivity"
     tools:showIn="@layout/activity_detail">
 
     <ScrollView
@@ -16,19 +16,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
             <TextView
+                android:id="@+id/detailSubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/detailSubject"
-                android:text="@string/subject"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/subject"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 />
@@ -40,72 +40,72 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingTop="15sp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="15sp">
 
 
 
                 <ImageView
-                    android:layout_width="55dp"
-                    android:layout_marginStart="5sp"
-                    android:layout_height="55dp"
                     android:id="@+id/nameImageDetail"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginStart="5sp"
                     android:contentDescription="@string/gmailtype" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingStart="10sp"
-                    android:layout_height="wrap_content">
+                    android:paddingStart="10sp">
 
                     <TextView
+                        android:id="@+id/recipientDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
                         android:paddingEnd="5sp"
                         android:text="@string/recipient"
-                        android:id="@+id/recipientDetails"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
                         />
 
 
                     <TextView
+                        android:id="@+id/timeDetails"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:id="@+id/timeDetails"
-                        android:text="@string/time"/>
+                        android:text="@string/time"
+                        android:textSize="18sp" />
 
 
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
+                android:id="@+id/bodyDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="30sp"
+                android:paddingEnd="5sp"
                 android:paddingStart="10sp"
                 android:paddingTop="20sp"
-                android:paddingEnd="5sp"
-                android:textSize="16sp"
-                android:layout_marginEnd="30sp"
 
-                android:id="@+id/bodyDetails"
+                android:textSize="16sp"
                 />
 
             <TextView
+                android:id="@+id/textViewAttachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
-                android:paddingStart="10sp"
                 android:paddingEnd="10sp"
-                android:visibility="gone"
+                android:paddingStart="10sp"
                 android:text="@string/attachments"
-                android:id="@+id/textViewAttachment" />
+                android:visibility="gone" />
 
             <ListView
-                android:layout_width="match_parent"
                 android:id="@+id/listViewAttachments"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             </ListView>

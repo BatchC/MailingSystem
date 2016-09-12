@@ -1,6 +1,5 @@
 package rohitnahata.mailingsystem;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,43 +8,47 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.github.wrdlbrnft.sortedlistadapter.SortedListAdapter;
 
 import java.util.List;
 
-public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdapter.MyViewHolder> {
+import rohitnahata.mailingsystem.databinding.PreviousMailsRecyclerBinding;
 
-    private List<PreviousMailModel> previousMailModelList;
+//public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdapter.MyViewHolder> {
+public class PreviousMailsAdapter extends SortedListAdapter<PreviousMailModel> {
+
     String letter;
     int color;
     ColorGenerator generator = ColorGenerator.MATERIAL;
+    private List<PreviousMailModel> previousMailModelList;
 
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView time,subjectText,bodyText,recipientText;
-        public ImageView nameImage,attachmentPresent;
-
-        public MyViewHolder(View view) {
-            super(view);
-            time = (TextView) view.findViewById(R.id.time);
-            subjectText = (TextView) view.findViewById(R.id.subjectText);
-            recipientText = (TextView) view.findViewById(R.id.recipientText);
-            bodyText = (TextView) view.findViewById(R.id.bodyText);
-            nameImage=(ImageView) view.findViewById(R.id.nameImage);
-            attachmentPresent=(ImageView)view.findViewById(R.id.attachmentPresent);
-        }
+    @Override
+    protected ViewHolder<? extends PreviousMailModel> onCreateViewHolder(LayoutInflater layoutInflater, ViewGroup viewGroup, int i) {
+        final PreviousMailsRecyclerBinding binding = PreviousMailsRecyclerBinding.inflate(layoutInflater, viewGroup, false);
+        return new MyViewHolder(binding);
     }
 
+//
+//    public PreviousMailsAdapter(List<PreviousMailModel> previousMailModelList) {
+//        this.previousMailModelList = previousMailModelList;
+//    }
+//
+//    @Override
+//    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        final View itemView = LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.previous_mails_recycler, parent, false);
+//
+//        return new MyViewHolder(itemView);
+//    }
 
-    public PreviousMailsAdapter(List<PreviousMailModel> previousMailModelList) {
-        this.previousMailModelList = previousMailModelList;
+    @Override
+    protected boolean areItemsTheSame(PreviousMailModel previousMailModel, PreviousMailModel t1) {
+        return false;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.previous_mails_recycler, parent, false);
-
-        return new MyViewHolder(itemView);
+    protected boolean areItemContentsTheSame(PreviousMailModel previousMailModel, PreviousMailModel t1) {
+        return false;
     }
 
     @Override
@@ -55,17 +58,15 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
         holder.subjectText.setText(previousMailModel.getStrSubject());
         holder.recipientText.setText(previousMailModel.getStrRecipients());
         holder.bodyText.setText(previousMailModel.getStrBody());
-        letter= String.valueOf(previousMailModel.getStrRecipients().charAt(0));
+        letter = String.valueOf(previousMailModel.getStrRecipients().charAt(0));
         System.out.println(letter);
-        color=generator.getColor(letter);
+        color = generator.getColor(letter);
         TextDrawable drawable = TextDrawable.builder()
-                .buildRound(letter,color /*generator.getRandomColor()*/);
+                .buildRound(letter, color /*generator.getRandomColor()*/);
         holder.nameImage.setImageDrawable(drawable);
-        if(previousMailModel.getStrAttachments()!=null&&previousMailModel.getStrAttachments().size()>0){
+        if (previousMailModel.getStrAttachments() != null && previousMailModel.getStrAttachments().size() > 0) {
             holder.attachmentPresent.setVisibility(View.VISIBLE);
         }
-
-
 
 
 //        holder.nameImage.setImageResource(previousMailModel.getGenre());
@@ -135,6 +136,41 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
         previousMailModelList.add(toPosition, model);
         notifyDataSetChanged();
 //        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    //    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends SortedListAdapter.ViewHolder<PreviousMailModel> {
+        private final PreviousMailsRecyclerBinding mBinding;
+        public TextView time, subjectText, bodyText, recipientText;
+        public ImageView nameImage, attachmentPresent;
+
+        public MyViewHolder(PreviousMailsRecyclerBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+//        public void bind(PreviousMailsRecyclerBinding item) {
+//            item.setModel(mBinding);
+//        }
+
+        public MyViewHolder(View view) {
+            super(view);
+            time = (TextView) view.findViewById(R.id.time);
+            subjectText = (TextView) view.findViewById(R.id.subjectText);
+            recipientText = (TextView) view.findViewById(R.id.recipientText);
+            bodyText = (TextView) view.findViewById(R.id.bodyText);
+            nameImage = (ImageView) view.findViewById(R.id.nameImage);
+            attachmentPresent = (ImageView) view.findViewById(R.id.attachmentPresent);
+            mBinding = null;
+        }
+
+        @Override
+        protected void performBind(PreviousMailModel previousMailModel) {
+            mBinding.setModel(previousMailModel);
+
+        }
+
+
     }
 
 

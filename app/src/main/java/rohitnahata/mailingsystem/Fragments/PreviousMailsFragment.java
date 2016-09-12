@@ -15,13 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,20 +110,23 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        previousMailModelList=new ArrayList<>(tempList);
         final List<PreviousMailModel> filteredModelList = filter(previousMailModelList, newText);
         mAdapter.animateTo(filteredModelList);
         recyclerView.scrollToPosition(0);
+//        previousMailModelList=new ArrayList<>(tempList);
+
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        // previousMailModelList=new ArrayList<>(tempList);
+//         previousMailModelList=new ArrayList<>(tempList);
         return false;
     }
 
     private List<PreviousMailModel> filter(List<PreviousMailModel> models, String query) {
+//                previousMailModelList=new ArrayList<>(tempList);
+
         query = query.toLowerCase();
 
         final List<PreviousMailModel> filteredModelList = new ArrayList<>();
