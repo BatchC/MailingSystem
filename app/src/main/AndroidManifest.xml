@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".App"
         android:theme="@style/MyMaterialTheme">
         <activity android:name=".Activities.Login">
             <intent-filter>
@@ -19,12 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.nononsenseapps.filepicker.FilePickerActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/FilePickerTheme">
+            android:theme="@style/FilePickerTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
 
