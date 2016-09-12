@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="item_click_support" type="id" />
+    <item type="id" name="emailTextView1" />
+    <item type="id" name="emailTextView2" />
+    <item type="id" name="emailTextView3" />
+    <item type="id" name="emailTextView4" />
+    <item type="id" name="emailTextView5" />
+    <item type="id" name="emailTextView6" />
+    <item type="id" name="emailTextView7" />
+    <item type="id" name="emailTextView8" />
+    <item type="id" name="emailTextView9" />
+    <item type="id" name="emailTextView10" />
+    <item type="id" name="emailTextView11" />
+    <item type="id" name="emailTextView12" />
+    <item type="id" name="emailTextView13" />
+    <item type="id" name="emailTextView14" />
+    <item type="id" name="emailTextView15" />
+    <item type="id" name="emailTextView16" />
+    <item type="id" name="emailTextView17" />
+    <item type="id" name="emailTextView18" />
+    <item type="id" name="emailTextView19" />
+    <item type="id" name="emailTextView20" />
+
+</resources>

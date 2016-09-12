@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:clickable="true"
+    android:background="?android:attr/selectableItemBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:id="@+id/layout1"
+        android:paddingStart="4sp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_marginTop="6sp"
+            android:layout_height="45dp"
+            android:id="@+id/nameImage"
+            android:contentDescription="@string/gmailtype" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="10sp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/layout1"
+        android:id="@+id/linearLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:singleLine="true"
+                android:paddingEnd="65sp"
+                android:text="@string/recipient"
+                android:id="@+id/recipientText"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/attachmentPresent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_attachment_black_18dp"
+                android:layout_alignStart="@+id/time"
+                android:visibility="gone"
+                android:contentDescription="@string/attachmentpresent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:paddingStart="20sp"
+                android:id="@+id/time"
+                android:layout_alignParentEnd="true"
+                android:paddingEnd="5sp"
+                android:text="@string/time"/>
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:paddingEnd="20sp"
+            android:layout_height="wrap_content"
+            android:text="@string/subject"
+            android:id="@+id/subjectText"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:paddingEnd="20sp"
+            android:layout_height="wrap_content"
+            android:text="@string/body"
+            android:id="@+id/bodyText"
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
