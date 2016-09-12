@@ -1,10 +1,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingStart="8sp"
-    android:paddingEnd="8sp"
-    android:paddingTop="8sp"
     android:layout_height="match_parent"
+    android:paddingBottom="50sp"
+    android:paddingEnd="8sp"
+    android:paddingStart="8sp"
+    android:paddingTop="8sp"
     tools:context=".Fragments.MailFragment">
 
     <ScrollView
@@ -13,97 +14,113 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/recipient_email" />
+
+            <MultiAutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:completionThreshold="1"
+
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-                <TextView
-                    android:text="@string/recipient_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <MultiAutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:completionThreshold="1"
-
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content"
-                    android:weightSum="1">
-
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editTextEmail"
-                        android:layout_weight=".95"
-                        android:inputType="textEmailAddress" />
-
-                    <Button
-                        android:id="@+id/addEmail"
-                        android:layout_height="20sp"
-                        android:layout_width="20sp"
-                        android:background="@drawable/ic_person_add_black_24dp"
-                        />
-
-
-                </LinearLayout>
-
-
-                <!--<com.tokenautocomplete.ContactsCompletionView-->
-                    <!--android:id="@+id/searchView"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:imeOptions="actionDone"-->
-                    <!--android:textColor="@android:color/darker_gray"-->
-                    <!--android:textSize="19sp"-->
-                    <!--android:nextFocusDown="@+id/editText"-->
-                    <!--android:inputType="text|textNoSuggestions|textMultiLine"-->
-                    <!--android:focusableInTouchMode="true" />-->
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:id="@+id/extraEmailsLayout"
-                    android:layout_height="wrap_content">
-
-
-                </LinearLayout>
-
-
-                <TextView
-                    android:text="@string/subject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/editTextSubject"
-                    android:inputType="textEmailSubject" />
-                <TextView
-                    android:text="@string/message"
+                    android:id="@+id/editTextEmail"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_gravity="top"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:id="@+id/editTextMessage" />
+                    android:layout_weight=".95"
+                    android:inputType="textEmailAddress" />
 
                 <Button
+                    android:id="@+id/addEmail"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:background="@drawable/ic_person_add_black_24dp"
+                    />
+
+
+            </LinearLayout>
+
+
+            <!--<com.tokenautocomplete.ContactsCompletionView-->
+            <!--android:id="@+id/searchView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:imeOptions="actionDone"-->
+            <!--android:textColor="@android:color/darker_gray"-->
+            <!--android:textSize="19sp"-->
+            <!--android:nextFocusDown="@+id/editText"-->
+            <!--android:inputType="text|textNoSuggestions|textMultiLine"-->
+            <!--android:focusableInTouchMode="true" />-->
+
+
+            <LinearLayout
+                android:id="@+id/extraEmailsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subject" />
+
+            <EditText
+                android:id="@+id/editTextSubject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailSubject" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/message" />
+
+            <EditText
+                android:id="@+id/editTextMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:inputType="textMultiLine" />
+
+
+            <LinearLayout
+                android:id="@+id/attachmentFragementMail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/buttonSend"
-                    android:text="@string/send"/>
+                    android:text="@string/attachments123"
+                    android:textStyle="bold" />
+
+
             </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/send" />
 
 
         </LinearLayout>

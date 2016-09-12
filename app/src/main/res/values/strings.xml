@@ -73,4 +73,5 @@
     <string name="action_search">search</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="attachments">Attachments:</string>
+    <string name="attachments123">Attachments:</string>
 </resources>
