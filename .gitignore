@@ -3,6 +3,7 @@
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
+/app/src/main/java/rohitnahata.mailingsystem/Config.java
 .DS_Store
 /build
 /captures
