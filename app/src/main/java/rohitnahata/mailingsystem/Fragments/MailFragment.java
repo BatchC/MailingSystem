@@ -5,9 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
-import android.media.effect.Effect;
 import android.net.Uri;
-import android.net.wifi.ScanResult;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,21 +21,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nononsenseapps.filepicker.FilePickerActivity;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Calendar;
 import java.util.List;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -53,17 +45,18 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private EditText editTextEmail;
     private EditText editTextSubject;
     private EditText editTextMessage;
+    private String timeSent;
     private List<Uri> filepath=null;
     private String message;
     private String subject;
     private ArrayList<String> strFilePath;
     private ArrayList<String> strFilePathString;
     private String[] temp;
-    String allEmails;
-    private String[] extraMails;
+    private String allEmails;
     private InternetAddress[] recipientAddress;
     private int emailFieldsUsed;
     private LinearLayout extraEmailsLayout;
+    private LinearLayout extraAttachmentsLayout;
     private Button addEmail;
 
     public MailFragment() {
@@ -115,6 +108,9 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         addEmail=(Button)view.findViewById(R.id.addEmail);
         extraEmailsLayout=(LinearLayout)view.findViewById(R.id.extraEmailsLayout);
         extraEmailsLayout.setVisibility(View.VISIBLE);
+        extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
+        extraEmailsLayout.setVisibility(View.VISIBLE);
+
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
         buttonSend.setOnClickListener(this);
@@ -155,12 +151,31 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                     ClipData clip = data.getClipData();
 
                     if (clip != null) {
+                        extraAttachmentsLayout.setVisibility(View.VISIBLE);
                         for (int i = 0; i < clip.getItemCount(); i++) {
                             Uri uri = clip.getItemAt(i).getUri();
                             filepath.add(uri);
                             System.out.println("else");
                             System.out.println(uri);
 //                            filepath=uri;
+                            LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            TextView tv = new TextView(getContext());
+                            String tp = String.valueOf(uri).substring(7);
+                            tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
+                            tv.setPadding(0, 5, 0, 10);
+                            tv.setLayoutParams(lparams);
+//
+//                            if(filepath.size()>0){
+//                                for(Uri singleFilePath:filepath){
+//                                    String tp = String.valueOf(singleFilePath);
+//                                    tp = tp.substring(7);
+//                                    strFilePath.add(tp);
+//                                    System.out.println(tp.substring(tp.lastIndexOf("/")));
+//                                    strFilePathString.add(tp.substring(tp.lastIndexOf("/")).substring(1));
+//                                }
+//                            }
+                            extraAttachmentsLayout.addView(tv);
                         }
                     }
                     // For Ice Cream Sandwich
@@ -298,6 +313,10 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         }
 
         if(recipientsPresent !=0) {
+            Calendar c = Calendar.getInstance();
+            int minute = c.get(Calendar.MINUTE);
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            timeSent = hour + ":" + minute;
             save_to_database();
             sendEmail();
 
@@ -310,12 +329,11 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private void save_to_database() {
 
         String recipient,subject,body,attachment[];
-        subject= String.valueOf(((EditText)editTextSubject).getText());
-        body=String.valueOf(((EditText)editTextMessage).getText());
+        subject = String.valueOf(editTextSubject.getText());
+        body = String.valueOf(editTextMessage.getText());
         recipient=allEmails;
-        
 
-        
+
     }
 
     private void clearFields(int emailField){
