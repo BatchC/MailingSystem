@@ -15,10 +15,10 @@ public class Constants {
     public static final String RECIPIENT_LIST = "recipients";
     public static final String ATTACHMENT_LIST ="attachments";
 
-    public static final String CREATE_TABLE_MAILS="CREATE TABLE " + MAIL_TABLE_NAME + "(" +
-            MAIL_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            MAIL_SUBJECT + " TEXT, " +
-            RECIPIENT_LIST+" TEXT, "+
-            ATTACHMENT_LIST+" TEXT, "+
-            MAIL_BODY + " TEXT)";
+//    public static final String CREATE_TABLE_MAILS="CREATE TABLE " + MAIL_TABLE_NAME + "(" +
+//            MAIL_ROW_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//            MAIL_SUBJECT + " TEXT, " +
+//            RECIPIENT_LIST+" TEXT, "+
+//            ATTACHMENT_LIST+" TEXT, "+
+//            MAIL_BODY + " TEXT)";
 }
