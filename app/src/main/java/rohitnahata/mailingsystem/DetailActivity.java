@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.Activities;
+package rohitnahata.mailingsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
-import rohitnahata.mailingsystem.R;
 
 
 public class DetailActivity extends AppCompatActivity {

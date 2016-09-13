@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.Fragments;
+package rohitnahata.mailingsystem;
 
 
 import android.os.Bundle;
@@ -23,10 +23,6 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import rohitnahata.mailingsystem.App;
-import rohitnahata.mailingsystem.R;
-import rohitnahata.mailingsystem.StudentDetails;
-import rohitnahata.mailingsystem.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 
 

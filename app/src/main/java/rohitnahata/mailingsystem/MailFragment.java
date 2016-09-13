@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.Fragments;
+package rohitnahata.mailingsystem;
 
 
 import android.annotation.TargetApi;
@@ -32,10 +32,6 @@ import java.util.List;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-
-import rohitnahata.mailingsystem.PreviousMailModel;
-import rohitnahata.mailingsystem.R;
-import rohitnahata.mailingsystem.SendMail;
 
 
 /**

@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.Activities;
+package rohitnahata.mailingsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import rohitnahata.mailingsystem.Utils.LoadingProgressBar;
-import rohitnahata.mailingsystem.R;
 
 public class Login extends LoadingProgressBar implements
         View.OnClickListener {

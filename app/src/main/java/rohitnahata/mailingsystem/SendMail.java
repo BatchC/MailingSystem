@@ -1,8 +1,8 @@
 package rohitnahata.mailingsystem;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,7 +13,6 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.activation.MailcapCommandMap;
-import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -25,8 +24,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-
-import rohitnahata.mailingsystem.Fragments.MailFragment;
 
 /**
  * Created by Rohit on 03/09/2016.

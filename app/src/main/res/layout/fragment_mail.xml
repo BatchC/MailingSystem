@@ -6,7 +6,7 @@
     android:paddingEnd="8sp"
     android:paddingStart="8sp"
     android:paddingTop="8sp"
-    tools:context=".Fragments.MailFragment">
+    tools:context=".MailFragment">
 
     <ScrollView
         android:layout_width="match_parent"

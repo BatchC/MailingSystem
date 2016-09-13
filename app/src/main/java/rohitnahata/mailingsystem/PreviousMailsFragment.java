@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.Fragments;
+package rohitnahata.mailingsystem;
 
 
 import android.content.Intent;
@@ -20,10 +20,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import rohitnahata.mailingsystem.Activities.DetailActivity;
-import rohitnahata.mailingsystem.PreviousMailModel;
-import rohitnahata.mailingsystem.PreviousMailsAdapter;
-import rohitnahata.mailingsystem.R;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 import rohitnahata.mailingsystem.Utils.ItemClickSupport;
 
@@ -34,7 +30,7 @@ import rohitnahata.mailingsystem.Utils.ItemClickSupport;
 public class PreviousMailsFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     private List<PreviousMailModel> previousMailModelList = new ArrayList<>();
-    private List<PreviousMailModel> tempList;
+    private List<PreviousMailModel> tempList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PreviousMailsAdapter mAdapter;
     private ArrayList<String> strAttachments;
@@ -59,7 +55,10 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
         prepareData();
-        tempList=new ArrayList<>(previousMailModelList);
+        mAdapter.notifyDataSetChanged();
+        tempList.clear();
+        tempList.addAll(previousMailModelList);
+
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
@@ -105,22 +104,25 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
                         return true; // Return true to expand action view
                     }
                 });
-//        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        previousMailModelList.clear();
+        previousMailModelList.addAll(tempList);
+        mAdapter.notifyDataSetChanged();
         final List<PreviousMailModel> filteredModelList = filter(previousMailModelList, newText);
         mAdapter.animateTo(filteredModelList);
         recyclerView.scrollToPosition(0);
-//        previousMailModelList=new ArrayList<>(tempList);
-
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-//         previousMailModelList=new ArrayList<>(tempList);
+        previousMailModelList.clear();
+        previousMailModelList.addAll(tempList);
+        mAdapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(0);
         return false;
     }
 
