@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+    <!--<data>-->
 
-        <variable
-            name="model"
-            type="rohitnahata.mailingsystem.PreviousMailModel" />
+        <!--<variable-->
+            <!--name="model"-->
+            <!--type="rohitnahata.mailingsystem.PreviousMailModel" />-->
 
-    </data>
+    <!--</data>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:paddingEnd="65sp"
                 android:singleLine="true"
-                android:text="@{model.strRecipients}"
+
                 android:textSize="15sp"
                 android:textStyle="bold"
                 />
@@ -74,7 +74,6 @@
                 android:layout_alignParentEnd="true"
                 android:paddingEnd="5sp"
                 android:paddingStart="20sp"
-                android:text="@{model.strTime_sent}"
                 android:textSize="14sp" />
 
         </RelativeLayout>
@@ -84,7 +83,6 @@
             android:layout_height="wrap_content"
             android:paddingEnd="20sp"
             android:singleLine="true"
-            android:text="@{model.strSubject}"
             />
 
         <TextView
@@ -93,7 +91,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="20sp"
             android:singleLine="true"
-            android:text="@{model.strBody}"
+
             />
 
 
