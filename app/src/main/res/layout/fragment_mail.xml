@@ -101,7 +101,7 @@
 
 
             <LinearLayout
-                android:id="@+id/attachmentFragementMail"
+                android:id="@+id/attachmentFragementMailRoot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -112,6 +112,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/attachments123"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/attachmentFragementMail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
 
 
             </LinearLayout>

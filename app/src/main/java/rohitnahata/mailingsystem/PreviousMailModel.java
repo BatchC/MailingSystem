@@ -104,10 +104,11 @@ public class PreviousMailModel {
     @Override
     public String toString() {
         return "PreviousMailModel{" +
-
+                "strRecipients='" + strRecipients + '\'' +
                 ", strSubject='" + strSubject + '\'' +
+                ", strBody='" + strBody + '\'' +
                 ", strTime_sent='" + strTime_sent + '\'' +
-//                ", intId=" + intId +
+                ", strAttachments=" + strAttachments +
                 '}';
     }
 }

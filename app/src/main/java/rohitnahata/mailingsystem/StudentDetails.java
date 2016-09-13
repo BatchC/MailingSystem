@@ -1,11 +1,9 @@
 package rohitnahata.mailingsystem;
 
-import java.io.Serializable;
-
 /**
  * Created by Rohit on 05/09/2016.
  */
-public class StudentDetails implements Serializable {
+public class StudentDetails {
     String classroom;
     String id;
     String name;
@@ -15,19 +13,21 @@ public class StudentDetails implements Serializable {
 
     }
 
-//    public StudentDetails(String name,String email_id){
-//        this.name=name;
-//        this.email_id=email_id;
-//        this.id="";
-//        this.classroom="";
-//    }
-
-
     public StudentDetails(String id, String name, String email_id, String classroom) {
         this.id = id;
         this.name = name;
         this.email_id = email_id;
         this.classroom=classroom;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentDetails{" +
+                "classroom='" + classroom + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email_id='" + email_id + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -61,6 +61,4 @@ public class StudentDetails implements Serializable {
     public void setClassroom(String classroom) {
         this.classroom = classroom;
     }
-
-
 }

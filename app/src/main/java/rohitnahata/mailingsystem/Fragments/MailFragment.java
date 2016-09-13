@@ -33,6 +33,7 @@ import java.util.List;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import rohitnahata.mailingsystem.PreviousMailModel;
 import rohitnahata.mailingsystem.R;
 import rohitnahata.mailingsystem.SendMail;
 
@@ -56,7 +57,9 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private InternetAddress[] recipientAddress;
     private int emailFieldsUsed;
     private LinearLayout extraEmailsLayout;
+    private LinearLayout extraAttachmentsLayoutRoot;
     private LinearLayout extraAttachmentsLayout;
+
     private Button addEmail;
 
     public MailFragment() {
@@ -108,8 +111,9 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         addEmail=(Button)view.findViewById(R.id.addEmail);
         extraEmailsLayout=(LinearLayout)view.findViewById(R.id.extraEmailsLayout);
         extraEmailsLayout.setVisibility(View.VISIBLE);
-        extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
+        extraAttachmentsLayoutRoot = (LinearLayout) view.findViewById(R.id.attachmentFragementMailRoot);
         extraEmailsLayout.setVisibility(View.VISIBLE);
+        extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
 
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
@@ -151,7 +155,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                     ClipData clip = data.getClipData();
 
                     if (clip != null) {
-                        extraAttachmentsLayout.setVisibility(View.VISIBLE);
+                        extraAttachmentsLayoutRoot.setVisibility(View.VISIBLE);
                         for (int i = 0; i < clip.getItemCount(); i++) {
                             Uri uri = clip.getItemAt(i).getUri();
                             filepath.add(uri);
@@ -328,10 +332,14 @@ public class MailFragment extends Fragment implements View.OnClickListener{
 
     private void save_to_database() {
 
-        String recipient,subject,body,attachment[];
+        String recipient, subject, body;
         subject = String.valueOf(editTextSubject.getText());
         body = String.valueOf(editTextMessage.getText());
         recipient=allEmails;
+        PreviousMailModel previousMailModel = new PreviousMailModel(recipient, subject, body, timeSent, strFilePathString);
+        System.out.println("llllllllll" + previousMailModel);
+        if (extraAttachmentsLayout.getChildCount() > 0)
+            extraEmailsLayout.removeAllViews();
 
 
     }

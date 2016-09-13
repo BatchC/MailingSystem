@@ -74,4 +74,12 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="attachments">Attachments:</string>
     <string name="attachments123">Attachments:</string>
+
+    <string name="database">Database</string>
+    <string name="uid">UID:</string>
+    <string name="name">Name:</string>
+    <string name="email">Email:</string>
+    <string name="classroom">Class:</string>
+    <string name="search_here">Search here</string>
+    <string name="hint_search">Search here</string>
 </resources>

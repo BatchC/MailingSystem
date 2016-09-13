@@ -3,44 +3,47 @@ package rohitnahata.mailingsystem.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.firebase.ui.database.FirebaseListAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.Map;
+import java.util.List;
 
-import rohitnahata.mailingsystem.Activities.MainActivity;
+import rohitnahata.mailingsystem.App;
 import rohitnahata.mailingsystem.R;
+import rohitnahata.mailingsystem.StudentDetails;
+import rohitnahata.mailingsystem.StudentDetailsAdapter;
+import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DatabaseFragment extends Fragment {
+public class DatabaseFragment extends Fragment implements SearchView.OnQueryTextListener {
 
-    Firebase mRootRef;
-    DatabaseReference databaseReference;
-    ArrayList<String> messages=new ArrayList<>();
-    TextView email_id;
-    private ListView listView;
+
+    StudentDetails studentDetails;
+    String strEmail, strUID, strName, strClass;
+    StudentDetailsAdapter mAdapter;
+    RecyclerView recyclerView;
     View view;
+    private List<StudentDetails> studentDetailsList = new ArrayList<>();
+    private List<StudentDetails> temp = new ArrayList<>();
+
 
     public DatabaseFragment() {
         // Required empty public constructor
@@ -53,51 +56,130 @@ public class DatabaseFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_database, container, false);
         setHasOptionsMenu(true);
-        listView=(ListView)view.findViewById(R.id.listView1);
-        databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("https://mailing-system-c6780.firebaseio.com/DEPARTMENT/COMPS/TE/Student/2014130007");
-        email_id=(TextView) view.findViewById(R.id.email_id);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewDatabase);
+        mAdapter = new StudentDetailsAdapter(studentDetailsList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(mAdapter);
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_toolbar_class_structure, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_search, menu);
+        final MenuItem item = menu.findItem(R.id.action_search);
+
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+
+        MenuItemCompat.setOnActionExpandListener(item,
+                new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        mAdapter.animateTo(studentDetailsList);
+                        recyclerView.scrollToPosition(0);
+                        return true; // Return true to collapse action view
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        // Do something when expanded
+                        return true; // Return true to expand action view
+                    }
+                });
+
+    }
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseListAdapter<String> firebaseListAdapter=new FirebaseListAdapter<String>
-                (((MainActivity)(getActivity())),
-                        String.class,android.R.layout.simple_list_item_1
-                        ,databaseReference){
 
+
+        new Firebase(App.BASE_URL).addValueEventListener(new ValueEventListener() {
             @Override
-            protected void populateView(View v, String model, int position) {
-                email_id.setText(model);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                deleteData();
+                for (DataSnapshot alert : dataSnapshot.getChildren()) {
+                    strClass = alert.getKey();
+                    System.out.println(strClass);
+                    for (DataSnapshot recipient : alert.getChildren()) {
+                        strEmail = (String) recipient.child("email_id").getValue();
+                        strName = (String) recipient.child("student_name").getValue();
+                        strUID = (String) recipient.child("id").getValue();
+                        addData(strUID, strName, strEmail, strClass);
+                        System.out.println(strName);
+                        System.out.println(strEmail);
+                        System.out.println(strUID);
+                    }
+                }
+                mAdapter.notifyDataSetChanged();
             }
 
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
+    }
 
-        };
-        listView.setAdapter(firebaseListAdapter);
+    public void deleteData() {
+        studentDetailsList.clear();
+        temp.clear();
+    }
+
+    public void addData(String n1, String n2, String n3, String n4) {
+        studentDetails = new StudentDetails(n1, n2, n3, n4);
+        studentDetailsList.add(studentDetails);
+        temp.add(studentDetails);
+        System.out.println(studentDetails);
+
+    }
 
 
-//        messageRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Map<String,String> map=dataSnapshot.getValue(Map.class);
-//                String email_id_string=map.get("email_id");
-//                String name_string=map.get("student_name");
-////                String message=dataSnapshot.getValue(String.class);
-////                Log.v("firebase",message);
-//                email_id.setText(email_id_string+"  "+name_string);
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//            }
-//        });
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        studentDetailsList.clear();
+        studentDetailsList.addAll(temp);
+        mAdapter.notifyDataSetChanged();
+        recyclerView.scrollToPosition(0);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        studentDetailsList.clear();
+        studentDetailsList.addAll(temp);
+        mAdapter.notifyDataSetChanged();
+        final List<StudentDetails> filteredModelList = filter(temp, newText);
+        mAdapter.animateTo(filteredModelList);
+        recyclerView.scrollToPosition(0);
+        return true;
+    }
+
+    private List<StudentDetails> filter(List<StudentDetails> models, String query) {
+        query = query.toLowerCase();
+
+        final List<StudentDetails> filteredModelList = new ArrayList<>();
+        for (StudentDetails model : models) {
+            final String text = model.getName().toLowerCase();
+            final String id = model.getId().toLowerCase();
+            final String classroom = model.getClassroom().toLowerCase();
+            final String email_id = model.getEmail_id().toLowerCase();
+
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            } else if (id.contains(query)) {
+                filteredModelList.add(model);
+            } else if (classroom.contains(query)) {
+                filteredModelList.add(model);
+            } else if (email_id.contains(query)) {
+                filteredModelList.add(model);
+            }
+
+        }
+        return filteredModelList;
     }
 }
