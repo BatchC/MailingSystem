@@ -26,6 +26,7 @@ import java.util.List;
 import rohitnahata.mailingsystem.Adapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Models.StudentDetails;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -39,8 +40,12 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     StudentDetailsAdapter mAdapter;
     RecyclerView recyclerView;
     View view;
-    private List<StudentDetails> studentDetailsList = new ArrayList<>();
-    private List<StudentDetails> temp = new ArrayList<>();
+    //    SharedPreferences sharedPreferences;
+    TinyDB tinyDB;
+    private ArrayList<StudentDetails> studentDetailsList = new ArrayList<>();
+    private ArrayList<StudentDetails> temp = new ArrayList<>();
+    private ArrayList<String> className = new ArrayList<>();
+
 
 
     public DatabaseFragment() {
@@ -54,6 +59,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_database, container, false);
         setHasOptionsMenu(true);
+        tinyDB = new TinyDB(getContext());
+        tinyDB.putListObject("classStudents", temp);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewDatabase);
         mAdapter = new StudentDetailsAdapter(studentDetailsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -94,7 +101,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onStart() {
         super.onStart();
-
+//        sharedPreferences=get
 
         new Firebase(App.BASE_URL).addValueEventListener(new ValueEventListener() {
             @Override
@@ -103,6 +110,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                 deleteData();
                 for (DataSnapshot alert : dataSnapshot.getChildren()) {
                     strClass = alert.getKey();
+                    className.add(alert.getKey());
                     for (DataSnapshot recipient : alert.getChildren()) {
                         strEmail = (String) recipient.child("email_id").getValue();
                         strName = (String) recipient.child("student_name").getValue();
@@ -111,6 +119,9 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                     }
                 }
                 mAdapter.notifyDataSetChanged();
+                String[] classNameArray;
+                classNameArray = className.toArray(new String[className.size()]);
+                tinyDB.putListString("className", classNameArray);
             }
 
             @Override
@@ -121,6 +132,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
 
     public void deleteData() {
         studentDetailsList.clear();
+        className.clear();
         temp.clear();
     }
 

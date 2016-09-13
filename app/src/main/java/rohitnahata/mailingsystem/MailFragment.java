@@ -34,6 +34,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -41,6 +42,7 @@ import rohitnahata.mailingsystem.Models.PreviousMailModel;
  */
 public class MailFragment extends Fragment implements View.OnClickListener{
 
+    TinyDB tinyDB;
     private EditText editTextEmail;
     private EditText editTextSubject;
     private EditText editTextMessage;
@@ -57,8 +59,9 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private LinearLayout extraEmailsLayout;
     private LinearLayout extraAttachmentsLayoutRoot;
     private LinearLayout extraAttachmentsLayout;
-
+    private ArrayList<PreviousMailModel> previousMailModelArrayList;
     private Button addEmail;
+
 
     public MailFragment() {
         // Required empty public constructor
@@ -100,7 +103,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         filepath=new ArrayList<>();
         strFilePath=new ArrayList<>();
         strFilePathString=new ArrayList<>();
-
+//        previousMailModelArrayList=new ArrayList<>()
+        tinyDB = new TinyDB(getContext());
         View view = inflater.inflate(R.layout.fragment_mail, container, false);
         setHasOptionsMenu(true);
         emailFieldsUsed=0;
@@ -112,7 +116,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraAttachmentsLayoutRoot = (LinearLayout) view.findViewById(R.id.attachmentFragementMailRoot);
         extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
-
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
         buttonSend.setOnClickListener(this);

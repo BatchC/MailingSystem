@@ -24,6 +24,7 @@ import rohitnahata.mailingsystem.Adapters.PreviousMailsAdapter;
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 import rohitnahata.mailingsystem.Utils.ItemClickSupport;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -31,6 +32,7 @@ import rohitnahata.mailingsystem.Utils.ItemClickSupport;
  */
 public class PreviousMailsFragment extends Fragment implements SearchView.OnQueryTextListener{
 
+    TinyDB tinyDB;
     private List<PreviousMailModel> previousMailModelList = new ArrayList<>();
     private List<PreviousMailModel> tempList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -49,7 +51,7 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_previous_mails, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-
+        tinyDB = new TinyDB(getContext());
         mAdapter = new PreviousMailsAdapter(previousMailModelList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -60,7 +62,6 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
         mAdapter.notifyDataSetChanged();
         tempList.clear();
         tempList.addAll(previousMailModelList);
-
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
