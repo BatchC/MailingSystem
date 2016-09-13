@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem;
+package rohitnahata.mailingsystem.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.R;
 
 /**
  * Created by Rohit on 05/09/2016.

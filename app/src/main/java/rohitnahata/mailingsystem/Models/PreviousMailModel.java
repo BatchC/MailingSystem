@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem;
+package rohitnahata.mailingsystem.Models;
 
 import java.util.ArrayList;
 

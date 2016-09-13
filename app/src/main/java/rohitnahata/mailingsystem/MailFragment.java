@@ -33,6 +33,8 @@ import java.util.List;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import rohitnahata.mailingsystem.Models.PreviousMailModel;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -155,8 +157,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                         for (int i = 0; i < clip.getItemCount(); i++) {
                             Uri uri = clip.getItemAt(i).getUri();
                             filepath.add(uri);
-                            System.out.println("else");
-                            System.out.println(uri);
 //                            filepath=uri;
                             LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -165,16 +165,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                             tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
                             tv.setPadding(0, 5, 0, 10);
                             tv.setLayoutParams(lparams);
-//
-//                            if(filepath.size()>0){
-//                                for(Uri singleFilePath:filepath){
-//                                    String tp = String.valueOf(singleFilePath);
-//                                    tp = tp.substring(7);
-//                                    strFilePath.add(tp);
-//                                    System.out.println(tp.substring(tp.lastIndexOf("/")));
-//                                    strFilePathString.add(tp.substring(tp.lastIndexOf("/")).substring(1));
-//                                }
-//                            }
                             extraAttachmentsLayout.addView(tv);
                         }
                     }
@@ -182,7 +172,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                 } 
             } else {
                 Uri uri = data.getData();
-                System.out.println("else"+uri);
 
                 // Do something with the URI
             }
@@ -307,7 +296,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                 String tp = String.valueOf(singleFilePath);
                 tp = tp.substring(7);
                 strFilePath.add(tp);
-                System.out.println(tp.substring(tp.lastIndexOf("/")));
                 strFilePathString.add(tp.substring(tp.lastIndexOf("/")).substring(1));
             }
         }

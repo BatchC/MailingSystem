@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem;
+package rohitnahata.mailingsystem.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.List;
+
+import rohitnahata.mailingsystem.Models.PreviousMailModel;
+import rohitnahata.mailingsystem.R;
 
 public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdapter.MyViewHolder> {
 
@@ -40,7 +43,6 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
         holder.recipientText.setText(previousMailModel.getStrRecipients());
         holder.bodyText.setText(previousMailModel.getStrBody());
         letter = String.valueOf(previousMailModel.getStrRecipients().charAt(0));
-        System.out.println(letter);
         color = generator.getColor(letter);
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(letter, color /*generator.getRandomColor()*/);

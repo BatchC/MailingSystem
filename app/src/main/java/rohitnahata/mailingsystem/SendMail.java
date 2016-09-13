@@ -35,7 +35,6 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
     private Context context;
 
     //Information to send email
-    private String email;
     private InternetAddress[] internetAddresses;
     private ArrayList<String> strFilePath;
     private ArrayList<String> getStrFilePathName;
@@ -138,13 +137,7 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
                 messageBodyPart.setFileName(getStrFilePathName.get(i));
                 multipart.addBodyPart(messageBodyPart);
             }
-//            DataSource source = new FileDataSource(tp);
-//            System.out.println("filepath   "+tp);
-//            messageBodyPart.setDataHandler(new DataHandler(source));
-//            messageBodyPart.setFileName(tp.replaceFirst(".*/(\\w+).*","$1"));
-//            System.out.println("yoyoyo");
-//            System.out.println(tp.replaceFirst(".*/(\\w+).*","$1"));
-//            multipart.addBodyPart(messageBodyPart);
+
 
             MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
             mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");

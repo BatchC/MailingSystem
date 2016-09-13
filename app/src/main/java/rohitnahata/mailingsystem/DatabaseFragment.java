@@ -23,6 +23,8 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import rohitnahata.mailingsystem.Adapters.StudentDetailsAdapter;
+import rohitnahata.mailingsystem.Models.StudentDetails;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 
 
@@ -101,15 +103,11 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                 deleteData();
                 for (DataSnapshot alert : dataSnapshot.getChildren()) {
                     strClass = alert.getKey();
-                    System.out.println(strClass);
                     for (DataSnapshot recipient : alert.getChildren()) {
                         strEmail = (String) recipient.child("email_id").getValue();
                         strName = (String) recipient.child("student_name").getValue();
                         strUID = (String) recipient.child("id").getValue();
                         addData(strUID, strName, strEmail, strClass);
-                        System.out.println(strName);
-                        System.out.println(strEmail);
-                        System.out.println(strUID);
                     }
                 }
                 mAdapter.notifyDataSetChanged();
@@ -130,7 +128,6 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         studentDetails = new StudentDetails(n1, n2, n3, n4);
         studentDetailsList.add(studentDetails);
         temp.add(studentDetails);
-        System.out.println(studentDetails);
 
     }
 

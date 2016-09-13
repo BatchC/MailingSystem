@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem;
+package rohitnahata.mailingsystem.Models;
 
 /**
  * Created by Rohit on 05/09/2016.
