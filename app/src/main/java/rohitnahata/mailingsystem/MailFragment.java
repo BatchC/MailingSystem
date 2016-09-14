@@ -117,7 +117,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraEmailsLayout=(LinearLayout)view.findViewById(R.id.extraEmailsLayout);
         extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayoutRoot = (LinearLayout) view.findViewById(R.id.attachmentFragementMailRoot);
-        extraEmailsLayout.setVisibility(View.VISIBLE);
+//        extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
