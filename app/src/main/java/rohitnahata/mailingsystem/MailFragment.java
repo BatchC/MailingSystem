@@ -64,7 +64,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private LinearLayout extraAttachmentsLayout;
     private ArrayList<PreviousMailModel> previousMailModelArrayList;
     private Button addEmail;
-    ArrayList<StudentDetails> studentDetailsList;
 
 
     public MailFragment() {
