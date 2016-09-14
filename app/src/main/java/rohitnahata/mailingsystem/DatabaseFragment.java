@@ -60,7 +60,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         view = inflater.inflate(R.layout.fragment_database, container, false);
         setHasOptionsMenu(true);
         tinyDB = new TinyDB(getContext());
-        tinyDB.putListObject("classStudents", temp);
+        tinyDB.putListObjectStudents("classStudents", temp);
+        tinyDB.putListString("classname", className);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewDatabase);
         mAdapter = new StudentDetailsAdapter(studentDetailsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -119,9 +120,6 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                     }
                 }
                 mAdapter.notifyDataSetChanged();
-                String[] classNameArray;
-                classNameArray = className.toArray(new String[className.size()]);
-                tinyDB.putListString("className", classNameArray);
             }
 
             @Override

@@ -34,6 +34,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
+import rohitnahata.mailingsystem.Models.StudentDetails;
 import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
@@ -43,6 +44,7 @@ import rohitnahata.mailingsystem.Utils.TinyDB;
 public class MailFragment extends Fragment implements View.OnClickListener{
 
     TinyDB tinyDB;
+    ArrayList<StudentDetails> studentDetailsList;
     private EditText editTextEmail;
     private EditText editTextSubject;
     private EditText editTextMessage;
@@ -56,6 +58,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private String allEmails;
     private InternetAddress[] recipientAddress;
     private int emailFieldsUsed;
+    private StudentDetails studentDetails;
     private LinearLayout extraEmailsLayout;
     private LinearLayout extraAttachmentsLayoutRoot;
     private LinearLayout extraAttachmentsLayout;
@@ -118,6 +121,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
+        studentDetailsList = tinyDB.getListObject("classStudents", studentDetails);
+        System.out.println(studentDetailsList);
         buttonSend.setOnClickListener(this);
 
         addEmail.setOnClickListener(new View.OnClickListener() {
