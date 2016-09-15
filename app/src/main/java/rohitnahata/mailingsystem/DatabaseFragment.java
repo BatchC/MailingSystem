@@ -41,6 +41,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        temp = ((App) getContext().getApplicationContext()).getStudentDetailsList();
+        studentDetailsList = new ArrayList<>(temp);
     }
 
     @Override
@@ -56,8 +58,6 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onStart() {
         super.onStart();
-        temp = ((App) getContext().getApplicationContext()).getStudentDetailsList();
-        studentDetailsList = new ArrayList<>(temp);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewDatabase);
         mAdapter = new StudentDetailsAdapter(studentDetailsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());

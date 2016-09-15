@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -43,6 +44,7 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
 public class MailFragment extends Fragment implements View.OnClickListener{
 
     View view;
+    ArrayAdapter<String> adapter;
 //    SharedPreferences sharedPreferences;
     private EditText editTextEmail;
     private EditText editTextSubject;
@@ -101,8 +103,9 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        tinyDB = new TinyDB(getContext());
         previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
+        className = ((App) getContext().getApplicationContext()).getClassName();
+        studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
         filepath = new ArrayList<>();
         strFilePath = new ArrayList<>();
         strFilePathString = new ArrayList<>();
@@ -126,8 +129,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-        className = ((App) getContext().getApplicationContext()).getClassName();
-        studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
         editTextSubject = (EditText) view.findViewById(R.id.editTextSubject);
         editTextMessage = (EditText) view.findViewById(R.id.editTextMessage);
         addEmail = (Button) view.findViewById(R.id.addEmail);
@@ -139,6 +140,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
         buttonSend.setOnClickListener(this);
+//        adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,className);
 
 
         addEmail.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +158,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                     tv.setLayoutParams(lparams);
                     tv.setBackground(null);
                     tv.setHint("To");
+
+                    tv.setSingleLine();
                     extraEmailsLayout.addView(tv);
                     setEmailId(tv, emailFieldsUsed);
                     tv.requestFocus();
@@ -298,41 +302,45 @@ public class MailFragment extends Fragment implements View.OnClickListener{
 
         if(recipientsPresent !=0) {
             Calendar c = Calendar.getInstance();
-            String minute = null;
-            String hour = null;
+            int min;
+            int hr;
+            String minute;
+            String hour;
+            min = c.get(Calendar.MINUTE);
+            hr = c.get(Calendar.HOUR_OF_DAY);
+            if (min < 10)
+                minute = "0" + min;
+            else
+                minute = String.valueOf(min);
 
-            if (c.get(Calendar.MINUTE) < 10)
-                minute = "0";
-            if (c.get(Calendar.HOUR_OF_DAY) < 10)
-                hour = "0";
-            minute += String.valueOf(c.get(Calendar.MINUTE));
-            hour += String.valueOf(c.get(Calendar.HOUR_OF_DAY));
+            if (hr < 10)
+                hour = "0" + hr;
+            else
+                hour = String.valueOf(hr);
+
             timeSent = hour + ":" + minute;
+            emailFieldsUsed = 0;
             save_to_database();
             sendEmail();
-
         }
     }
 
-
-
-
     private void save_to_database() {
-
         String recipient, subject, body;
         subject = String.valueOf(editTextSubject.getText());
         body = String.valueOf(editTextMessage.getText());
         recipient=allEmails;
+        if (strFilePathString.size() == 0)
+            strFilePathString = null;
         PreviousMailModel previousMailModel = new PreviousMailModel(recipient, subject, body, timeSent, strFilePathString);
         previousMailModelList.add(previousMailModel);
         ((App) this.getActivity().getApplication()).setPreviousMailModelList(previousMailModelList);
         if (extraAttachmentsLayout.getChildCount() > 0)
             extraEmailsLayout.removeAllViews();
-
-
+        extraAttachmentsLayoutRoot.setVisibility(View.INVISIBLE);
     }
 
-    //Filepicker
+    //FilePicker
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

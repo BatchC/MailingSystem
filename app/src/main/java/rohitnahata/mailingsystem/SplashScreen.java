@@ -13,11 +13,9 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 
 import rohitnahata.mailingsystem.Models.StudentDetails;
-import rohitnahata.mailingsystem.Utils.TinyDB;
 
 public class SplashScreen extends AppCompatActivity {
 
-    TinyDB tinyDB;
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<String> className;
 
@@ -25,7 +23,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        tinyDB = new TinyDB(getBaseContext());
     }
 
     @Override
@@ -40,10 +37,9 @@ public class SplashScreen extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            new Firebase(strings[0]).addValueEventListener(new ValueEventListener() {
+            new Firebase(strings[0]).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println(studentDetailsList);
                     deleteData();
                     for (DataSnapshot alert : dataSnapshot.getChildren()) {
                         String strClass = alert.getKey();
@@ -55,13 +51,16 @@ public class SplashScreen extends AppCompatActivity {
                             addData(strUID, strName, strEmail, strClass);
                         }
                     }
-                    System.out.println(studentDetailsList);
                 }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
                 }
             });
+            ((App) getApplication()).setStudentDetailsList(studentDetailsList);
+            ((App) getApplication()).setClassName(className);
+
+
 //
             return null;
         }
@@ -92,7 +91,6 @@ public class SplashScreen extends AppCompatActivity {
 
         public void addData(String n1, String n2, String n3, String n4) {
             StudentDetails studentDetails = new StudentDetails(n1, n2, n3, n4);
-//            System.out.println(studentDetails);
             studentDetailsList.add(studentDetails);
         }
 

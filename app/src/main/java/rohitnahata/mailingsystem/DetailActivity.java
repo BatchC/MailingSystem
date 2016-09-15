@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +25,7 @@ public class DetailActivity extends AppCompatActivity {
     int color;
     ColorGenerator generator = ColorGenerator.MATERIAL;
     ArrayAdapter<String> adapter;
+    LinearLayout linearLayout;
 
 
     @Override
@@ -52,15 +53,15 @@ public class DetailActivity extends AppCompatActivity {
         time_sent=(TextView)findViewById(R.id.timeDetails);
         imageView=(ImageView)findViewById(R.id.nameImageDetail);
         textViewAttachment=(TextView)findViewById(R.id.textViewAttachment);
-        listView=(ListView)findViewById(R.id.listViewAttachments);
-
-        adapter=new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                attachmentsStr);
-        if(attachmentsStr!=null) {
-            textViewAttachment.setVisibility(View.VISIBLE);
-            listView.setAdapter(adapter);
-        }
+//        listView=(ListView)findViewById(R.id.listViewAttachments);
+//
+//        adapter=new ArrayAdapter<>(this,
+//                android.R.layout.simple_list_item_1,
+//                attachmentsStr);
+//        if(attachmentsStr!=null) {
+//            textViewAttachment.setVisibility(View.VISIBLE);
+//            listView.setAdapter(adapter);
+//        }
         letter = (String.valueOf(recipientsStr.charAt(0))).toUpperCase();
         color=generator.getColor(letter);
         TextDrawable drawable = TextDrawable.builder()
@@ -70,6 +71,17 @@ public class DetailActivity extends AppCompatActivity {
         body.setText(bodyStr);
         subject.setText(subjectStr);
         time_sent.setText(time_sentStr);
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        linearLayout = (LinearLayout) findViewById(R.id.attachmentFragementMail);
+
+        for (String attachments : attachmentsStr) {
+            TextView tv = new TextView(this);
+            tv.setText(attachments);
+            tv.setPadding(0, 5, 0, 10);
+            tv.setLayoutParams(lparams);
+            linearLayout.addView(tv);
+        }
 
     }
 

@@ -22,11 +22,14 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
 public class App extends android.app.Application {
 
     public static final String PREVIOUS_MAIL_MODEL_LIST = "previousMailList";
+    public static final String STUDENTS_LIST = "previousStudentsList";
+    public static final String CLASSROOM_LIST = "classroomList";
+
+
     public static String BASE_URL = "https://mailing-system-c6780.firebaseio.com/";
     SharedPreferences sharedPrefs;
     Editor editor;
     Gson gson;
-    //    TinyDB tinyDB;
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<String> className;
     private ArrayList<PreviousMailModel> previousMailModelList;
@@ -37,7 +40,6 @@ public class App extends android.app.Application {
         }.getType();
         previousMailModelList = gson.fromJson(json, type);
         return previousMailModelList;
-        //        previousMailModelList = tinyDB.getListObjectMail("mailList", PreviousMailModel.class);
 
     }
 
@@ -47,14 +49,21 @@ public class App extends android.app.Application {
         editor.putString(PREVIOUS_MAIL_MODEL_LIST, json);
         editor.apply();
         this.previousMailModelList = previousMailModelList;
-//        tinyDB.putListObjectMail("classList", previousMailModelList);
     }
 
     public ArrayList<StudentDetails> getStudentDetailsList() {
+        String json = sharedPrefs.getString(PREVIOUS_MAIL_MODEL_LIST, null);
+        Type type = new TypeToken<ArrayList<PreviousMailModel>>() {
+        }.getType();
+        previousMailModelList = gson.fromJson(json, type);
         return studentDetailsList;
     }
 
     public void setStudentDetailsList(ArrayList<StudentDetails> studentDetailsList) {
+        editor = sharedPrefs.edit();
+        String json = gson.toJson(previousMailModelList);
+        editor.putString(PREVIOUS_MAIL_MODEL_LIST, json);
+        editor.apply();
         this.studentDetailsList = studentDetailsList;
     }
 
