@@ -4,10 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -27,15 +23,11 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+    }
 
-        Animation animFade = AnimationUtils.loadAnimation(this,R.anim.splashscreen_titletext);
-        TextView textView = (TextView) findViewById(R.id.splashScreenTitle);
-        textView.setAnimation(animFade);
-        Animation animBounce = AnimationUtils.loadAnimation(this,R.anim.splashscreen_image);
-        ImageView imageView = (ImageView)findViewById(R.id.splashScreenImage);
-        imageView.setAnimation(animBounce);
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
         className = ((App) this.getApplication()).getClassName();
         studentDetailsList = ((App) this.getApplication()).getStudentDetailsList();
         new PrefetchData().execute(App.BASE_URL);
@@ -82,6 +74,11 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            System.out.println(className + "  blabla");
+            System.out.println(((App) getBaseContext().getApplicationContext()).getClassName() + "  blabla");
+            System.out.println(studentDetailsList + "  blabla2");
+            System.out.println(((App) getBaseContext().getApplicationContext()).getStudentDetailsList() + "  blabla2");
+
             Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
 

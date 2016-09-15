@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
@@ -308,30 +307,43 @@ public class TinyDB {
         return newList;
     }
 
-    public ArrayList<StudentDetails> getListObjectStudent(String key, StudentDetails mClass) {
+
+    public ArrayList<Object> getListObject(String key, Class<?> mClass) {
+        Gson gson = new Gson();
+
+        ArrayList<String> objStrings = getListString(key);
+        ArrayList<Object> objects = new ArrayList<>();
+
+        for (String jObjString : objStrings) {
+            Object value = gson.fromJson(jObjString, mClass);
+            objects.add(value);
+        }
+        return objects;
+    }
+
+    // Put methods
+
+    public ArrayList<StudentDetails> getListObjectStudent(String key, Class<?> mClass) {
         Gson gson = new Gson();
 
         ArrayList<String> objStrings = getListString(key);
         ArrayList<StudentDetails> objects = new ArrayList<>();
 
         for (String jObjString : objStrings) {
-            StudentDetails value = gson.fromJson(jObjString, (Type) mClass);
+            StudentDetails value = (StudentDetails) gson.fromJson(jObjString, mClass);
             objects.add(value);
         }
         return objects;
     }
 
-
-    // Put methods
-
-    public ArrayList<PreviousMailModel> getListObjectMail(String key, StudentDetails mClass) {
+    public ArrayList<PreviousMailModel> getListObjectMail(String key, Class<?> mClass) {
         Gson gson = new Gson();
 
         ArrayList<String> objStrings = getListString(key);
         ArrayList<PreviousMailModel> objects = new ArrayList<>();
 
         for (String jObjString : objStrings) {
-            PreviousMailModel value = gson.fromJson(jObjString, (Type) mClass);
+            PreviousMailModel value = (PreviousMailModel) gson.fromJson(jObjString, mClass);
             objects.add(value);
         }
         return objects;

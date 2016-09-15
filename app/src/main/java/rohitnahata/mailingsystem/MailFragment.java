@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
@@ -82,8 +83,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
             case R.id.attachment:
                 add_attachment();
                 return true;
-                default:
-                    return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
     }
@@ -99,9 +100,21 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
+        filepath = new ArrayList<>();
+        strFilePath = new ArrayList<>();
+        strFilePathString = new ArrayList<>();
+        emailFieldsUsed = 0;
+
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater,
-                         ViewGroup container,
-                         Bundle savedInstanceState) {
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_mail, container, false);
         setHasOptionsMenu(true);
@@ -113,14 +126,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-
         className = ((App) getContext().getApplicationContext()).getClassName();
         studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
-        previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
-        filepath = new ArrayList<>();
-        strFilePath = new ArrayList<>();
-        strFilePathString = new ArrayList<>();
-        emailFieldsUsed = 0;
         editTextSubject = (EditText) view.findViewById(R.id.editTextSubject);
         editTextMessage = (EditText) view.findViewById(R.id.editTextMessage);
         addEmail = (Button) view.findViewById(R.id.addEmail);
@@ -131,7 +138,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
-
         buttonSend.setOnClickListener(this);
 
 
@@ -158,6 +164,14 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         });
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.out.println("Paused");
+
+    }
+
 
     public   boolean isValidEmail(CharSequence target) {
         return /*!TextUtils.isEmpty(target) &&  */android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
@@ -197,6 +211,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
             clearFields(i);
         }
     }
+
     //Send Mail button
     @Override
     public void onClick(View v) {
@@ -424,7 +439,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         String emailAddress;
         switch (emailField) {
             case 1:
-               emailAddress= String.valueOf(((EditText)getView().findViewById(R.id.emailTextView1)).getText());
+                emailAddress = String.valueOf(((EditText) getView().findViewById(R.id.emailTextView1)).getText());
                 break;
             case 2:
                 emailAddress= String.valueOf(((EditText)getView().findViewById(R.id.emailTextView2)).getText());

@@ -2,6 +2,7 @@ package rohitnahata.mailingsystem;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -27,22 +28,21 @@ import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
  */
 public class DatabaseFragment extends Fragment implements SearchView.OnQueryTextListener {
 
-
-    StudentDetails studentDetails;
-    String strEmail, strUID, strName, strClass;
     StudentDetailsAdapter mAdapter;
     RecyclerView recyclerView;
     View view;
-    //    SharedPreferences sharedPreferences;
-    //    TinyDB tinyDB;
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<StudentDetails> temp;
-    private ArrayList<String> className;
 
     public DatabaseFragment() {
         // Required empty public constructor
     }
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

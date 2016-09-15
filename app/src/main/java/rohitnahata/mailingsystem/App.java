@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 /**
  * Created by Rohit on 04/09/2016.
@@ -16,6 +17,7 @@ public class App extends android.app.Application {
 
 
     public static String BASE_URL = "https://mailing-system-c6780.firebaseio.com/";
+    TinyDB tinyDB;
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<String> className;
     private ArrayList<PreviousMailModel> previousMailModelList;
@@ -51,8 +53,18 @@ public class App extends android.app.Application {
         if (!FirebaseApp.getApps(this).isEmpty()) {
             Firebase.getDefaultConfig().setPersistenceEnabled(true);
         }
-        previousMailModelList = new ArrayList<>();
+        tinyDB = new TinyDB(getBaseContext());
+//        previousMailModelList = new ArrayList<>();
+//        className = new ArrayList<>();
+//        studentDetailsList = new ArrayList<>();
+        previousMailModelList = tinyDB.getListObjectMail("mailList", PreviousMailModel.class);
+        studentDetailsList = tinyDB.getListObjectStudent("classList", StudentDetails.class);
+        if (previousMailModelList == null)
+            previousMailModelList = new ArrayList<>();
+        if (studentDetailsList == null)
+            studentDetailsList = new ArrayList<>();
         className = new ArrayList<>();
-        studentDetailsList = new ArrayList<>();
+
+
     }
 }
