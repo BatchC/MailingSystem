@@ -41,8 +41,9 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
  */
 public class MailFragment extends Fragment implements View.OnClickListener{
 
+    View view;
     //    TinyDB tinyDB;
-//    SharedPreferences sharedpreferences;
+//    SharedPreferences sharedPreferences;
     private EditText editTextEmail;
     private EditText editTextSubject;
     private EditText editTextMessage;
@@ -62,7 +63,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private Button addEmail;
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<String> className;
-    private ArrayList<PreviousMailModel> previousMailModelArrayList;
+    private ArrayList<PreviousMailModel> previousMailModelList;
 
 
     public MailFragment() {
@@ -102,21 +103,28 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                          ViewGroup container,
                          Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_mail, container, false);
+        setHasOptionsMenu(true);
+
+        return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         className = ((App) getContext().getApplicationContext()).getClassName();
         studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
-        filepath=new ArrayList<>();
-        strFilePath=new ArrayList<>();
-        strFilePathString=new ArrayList<>();
-//        previousMailModelArrayList=new ArrayList<>()
-//        tinyDB = new TinyDB(getContext());
-        View view = inflater.inflate(R.layout.fragment_mail, container, false);
-        setHasOptionsMenu(true);
-        emailFieldsUsed=0;
-//        sharedpreferences=getActivity().getSharedPreferences("MY_PREF", Context.MODE_PRIVATE);
+        previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
+        filepath = new ArrayList<>();
+        strFilePath = new ArrayList<>();
+        strFilePathString = new ArrayList<>();
+        emailFieldsUsed = 0;
         editTextSubject = (EditText) view.findViewById(R.id.editTextSubject);
-        editTextMessage = (EditText)view.findViewById(R.id.editTextMessage);
-        addEmail=(Button)view.findViewById(R.id.addEmail);
-        extraEmailsLayout=(LinearLayout)view.findViewById(R.id.extraEmailsLayout);
+        editTextMessage = (EditText) view.findViewById(R.id.editTextMessage);
+        addEmail = (Button) view.findViewById(R.id.addEmail);
+        extraEmailsLayout = (LinearLayout) view.findViewById(R.id.extraEmailsLayout);
         extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayoutRoot = (LinearLayout) view.findViewById(R.id.attachmentFragementMailRoot);
 //        extraEmailsLayout.setVisibility(View.VISIBLE);
@@ -125,13 +133,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
 
         buttonSend.setOnClickListener(this);
-        return view;
-    }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         addEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,6 +302,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         recipient=allEmails;
         PreviousMailModel previousMailModel = new PreviousMailModel(recipient, subject, body, timeSent, strFilePathString);
         System.out.println("llllllllll" + previousMailModel);
+        previousMailModelList.add(previousMailModel);
         if (extraAttachmentsLayout.getChildCount() > 0)
             extraEmailsLayout.removeAllViews();
 
