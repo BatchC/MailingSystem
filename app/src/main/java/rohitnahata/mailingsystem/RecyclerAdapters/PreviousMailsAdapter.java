@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.Adapters;
+package rohitnahata.mailingsystem.RecyclerAdapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,7 +42,7 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
         holder.subjectText.setText(previousMailModel.getStrSubject());
         holder.recipientText.setText(previousMailModel.getStrRecipients());
         holder.bodyText.setText(previousMailModel.getStrBody());
-        letter = String.valueOf(previousMailModel.getStrRecipients().charAt(0));
+        letter = (String.valueOf(previousMailModel.getStrRecipients().charAt(0))).toUpperCase();
         color = generator.getColor(letter);
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(letter, color /*generator.getRandomColor()*/);

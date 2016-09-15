@@ -20,11 +20,10 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import rohitnahata.mailingsystem.Adapters.PreviousMailsAdapter;
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
+import rohitnahata.mailingsystem.RecyclerAdapters.PreviousMailsAdapter;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 import rohitnahata.mailingsystem.Utils.ItemClickSupport;
-import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -33,7 +32,6 @@ import rohitnahata.mailingsystem.Utils.TinyDB;
 public class PreviousMailsFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     View view;
-    TinyDB tinyDB;
     private ArrayList<PreviousMailModel> previousMailModelList;
     private ArrayList<PreviousMailModel> tempList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -85,9 +83,14 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
                 startActivity(i);
             }
         });
-
-
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -158,8 +161,5 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
         return filteredModelList;
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
+
 }

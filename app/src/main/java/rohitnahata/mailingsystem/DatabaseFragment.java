@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import rohitnahata.mailingsystem.Adapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.RecyclerAdapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 
 
@@ -67,6 +67,10 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         recyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

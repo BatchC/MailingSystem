@@ -61,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
             textViewAttachment.setVisibility(View.VISIBLE);
             listView.setAdapter(adapter);
         }
-        letter= String.valueOf(recipientsStr.charAt(0));
+        letter = (String.valueOf(recipientsStr.charAt(0))).toUpperCase();
         color=generator.getColor(letter);
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(letter,color /*generator.getRandomColor()*/);

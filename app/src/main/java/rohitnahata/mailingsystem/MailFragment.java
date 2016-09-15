@@ -35,7 +35,6 @@ import javax.mail.internet.InternetAddress;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetails;
-import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -44,7 +43,6 @@ import rohitnahata.mailingsystem.Utils.TinyDB;
 public class MailFragment extends Fragment implements View.OnClickListener{
 
     View view;
-    TinyDB tinyDB;
 //    SharedPreferences sharedPreferences;
     private EditText editTextEmail;
     private EditText editTextSubject;
@@ -103,7 +101,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tinyDB = new TinyDB(getContext());
+//        tinyDB = new TinyDB(getContext());
         previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
         filepath = new ArrayList<>();
         strFilePath = new ArrayList<>();
@@ -156,7 +154,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                     emailFieldsUsed++;
                     EditText tv = new EditText(getContext());
                     tv.setLayoutParams(lparams);
-//                  tv.setHint("Email");
+                    tv.setBackground(null);
+                    tv.setHint("To");
                     extraEmailsLayout.addView(tv);
                     setEmailId(tv, emailFieldsUsed);
                     tv.requestFocus();
@@ -299,8 +298,15 @@ public class MailFragment extends Fragment implements View.OnClickListener{
 
         if(recipientsPresent !=0) {
             Calendar c = Calendar.getInstance();
-            int minute = c.get(Calendar.MINUTE);
-            int hour = c.get(Calendar.HOUR_OF_DAY);
+            String minute = null;
+            String hour = null;
+
+            if (c.get(Calendar.MINUTE) < 10)
+                minute = "0";
+            if (c.get(Calendar.HOUR_OF_DAY) < 10)
+                hour = "0";
+            minute += String.valueOf(c.get(Calendar.MINUTE));
+            hour += String.valueOf(c.get(Calendar.HOUR_OF_DAY));
             timeSent = hour + ":" + minute;
             save_to_database();
             sendEmail();
@@ -318,10 +324,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         body = String.valueOf(editTextMessage.getText());
         recipient=allEmails;
         PreviousMailModel previousMailModel = new PreviousMailModel(recipient, subject, body, timeSent, strFilePathString);
-        System.out.println("llllllllll" + previousMailModel);
         previousMailModelList.add(previousMailModel);
         ((App) this.getActivity().getApplication()).setPreviousMailModelList(previousMailModelList);
-
         if (extraAttachmentsLayout.getChildCount() > 0)
             extraEmailsLayout.removeAllViews();
 
