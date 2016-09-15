@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -363,6 +364,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                             tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
                             tv.setPadding(0, 5, 0, 10);
                             tv.setLayoutParams(lparams);
+                            tv.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
                             extraAttachmentsLayout.addView(tv);
                         }
                     }

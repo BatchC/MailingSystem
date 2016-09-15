@@ -73,16 +73,16 @@ public class DetailActivity extends AppCompatActivity {
         time_sent.setText(time_sentStr);
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        linearLayout = (LinearLayout) findViewById(R.id.attachmentFragementMail);
-
-        for (String attachments : attachmentsStr) {
-            TextView tv = new TextView(this);
-            tv.setText(attachments);
-            tv.setPadding(0, 5, 0, 10);
-            tv.setLayoutParams(lparams);
-            linearLayout.addView(tv);
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        if (attachmentsStr != null) {
+            for (String attachments : attachmentsStr) {
+                TextView tv = new TextView(this);
+                tv.setText(attachments);
+                tv.setPadding(0, 5, 0, 10);
+                tv.setLayoutParams(lparams);
+                linearLayout.addView(tv);
+            }
         }
-
     }
 
 }
