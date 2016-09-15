@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +30,9 @@ import rohitnahata.mailingsystem.Utils.ItemClickSupport;
  */
 public class PreviousMailsFragment extends Fragment implements SearchView.OnQueryTextListener{
 
+    View view;
     //    TinyDB tinyDB;
-    private ArrayList<PreviousMailModel> previousMailModelList = new ArrayList<>();
+    private ArrayList<PreviousMailModel> previousMailModelList;
     private ArrayList<PreviousMailModel> tempList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PreviousMailsAdapter mAdapter;
@@ -48,40 +48,41 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_previous_mails, container, false);
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycler_view);
-//        tinyDB = new TinyDB(getContext());
+        view = inflater.inflate(R.layout.fragment_previous_mails, container, false);
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        tempList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
+        previousMailModelList = new ArrayList<>(tempList);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mAdapter = new PreviousMailsAdapter(previousMailModelList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-        previousMailModelList.clear();
-        prepareData();
         mAdapter.notifyDataSetChanged();
-        tempList.clear();
-        tempList.addAll(previousMailModelList);
-//        tinyDB.putListObjectMail("PreviousMailsList",tempList);
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int pos, View v) {
-                Intent i=new Intent(getContext(),DetailActivity.class);
+                Intent i = new Intent(getContext(), DetailActivity.class);
                 //LOAD DATA
-                i.putExtra("RECIPIENTS",previousMailModelList.get(pos).getStrRecipients());
-                i.putExtra("BODY",previousMailModelList.get(pos).getStrBody());
-                i.putExtra("SUBJECT",previousMailModelList.get(pos).getStrSubject());
-                i.putExtra("TIME",previousMailModelList.get(pos).getStrTime_sent());
-                i.putExtra("ATTACHMENTS",previousMailModelList.get(pos).getStrAttachments());
+                i.putExtra("RECIPIENTS", previousMailModelList.get(pos).getStrRecipients());
+                i.putExtra("BODY", previousMailModelList.get(pos).getStrBody());
+                i.putExtra("SUBJECT", previousMailModelList.get(pos).getStrSubject());
+                i.putExtra("TIME", previousMailModelList.get(pos).getStrTime_sent());
+                i.putExtra("ATTACHMENTS", previousMailModelList.get(pos).getStrAttachments());
                 //START ACTIVITY
                 startActivity(i);
-                Toast.makeText(getContext(), "efef",Toast.LENGTH_SHORT).show();
             }
         });
 
-        setHasOptionsMenu(true);
-        return v;
+
     }
 
     @Override

@@ -54,9 +54,9 @@ public class SplashScreen extends AppCompatActivity {
                 public void onCancelled(FirebaseError firebaseError) {
                 }
             });
-            ((App) getBaseContext().getApplicationContext()).setClassName(className);
-            ((App) getBaseContext().getApplicationContext()).setStudentDetailsList(studentDetailsList);
-
+//            ((App) getBaseContext().getApplicationContext()).setClassName(className);
+//            ((App) getBaseContext().getApplicationContext()).setStudentDetailsList(studentDetailsList);
+//
             return null;
         }
 

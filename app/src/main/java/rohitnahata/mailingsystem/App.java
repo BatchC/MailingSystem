@@ -11,6 +11,7 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
 /**
  * Created by Rohit on 04/09/2016.
  */
+
 public class App extends android.app.Application {
 
 
