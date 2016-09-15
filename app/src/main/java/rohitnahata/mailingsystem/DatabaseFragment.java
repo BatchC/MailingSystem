@@ -15,18 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import rohitnahata.mailingsystem.Adapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Models.StudentDetails;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
-import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -41,12 +34,10 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     RecyclerView recyclerView;
     View view;
     //    SharedPreferences sharedPreferences;
-    TinyDB tinyDB;
-    private ArrayList<StudentDetails> studentDetailsList = new ArrayList<>();
-    private ArrayList<StudentDetails> temp = new ArrayList<>();
-    private ArrayList<String> className = new ArrayList<>();
-
-
+    //    TinyDB tinyDB;
+    private ArrayList<StudentDetails> studentDetailsList;
+    private ArrayList<StudentDetails> temp;
+    private ArrayList<String> className;
 
     public DatabaseFragment() {
         // Required empty public constructor
@@ -59,9 +50,15 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_database, container, false);
         setHasOptionsMenu(true);
-        tinyDB = new TinyDB(getContext());
-        tinyDB.putListObjectStudents("classStudents", temp);
-        tinyDB.putListString("classname", className);
+        return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        temp = ((App) getContext().getApplicationContext()).getStudentDetailsList();
+        studentDetailsList = new ArrayList<>(temp);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewDatabase);
         mAdapter = new StudentDetailsAdapter(studentDetailsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -69,8 +66,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(mAdapter);
-        return view;
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -99,47 +96,47 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                 });
 
     }
-    @Override
-    public void onStart() {
-        super.onStart();
+
+
 //        sharedPreferences=get
 
-        new Firebase(App.BASE_URL).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+//        new Firebase(App.BASE_URL).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                deleteData();
+//                for (DataSnapshot alert : dataSnapshot.getChildren()) {
+//                    strClass = alert.getKey();
+//                    className.add(alert.getKey());
+//                    for (DataSnapshot recipient : alert.getChildren()) {
+//                        strEmail = (String) recipient.child("email_id").getValue();
+//                        strName = (String) recipient.child("student_name").getValue();
+//                        strUID = (String) recipient.child("id").getValue();
+//                        addData(strUID, strName, strEmail, strClass);
+//                    }
+//                }
+//                mAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(FirebaseError firebaseError) {
+//            }
+//        });
 
-                deleteData();
-                for (DataSnapshot alert : dataSnapshot.getChildren()) {
-                    strClass = alert.getKey();
-                    className.add(alert.getKey());
-                    for (DataSnapshot recipient : alert.getChildren()) {
-                        strEmail = (String) recipient.child("email_id").getValue();
-                        strName = (String) recipient.child("student_name").getValue();
-                        strUID = (String) recipient.child("id").getValue();
-                        addData(strUID, strName, strEmail, strClass);
-                    }
-                }
-                mAdapter.notifyDataSetChanged();
-            }
 
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-            }
-        });
-    }
+//    public void deleteData() {
+//        studentDetailsList.clear();
+//        className.clear();
+//        temp.clear();
+//    }
+//
+//    public void addData(String n1, String n2, String n3, String n4) {
+//        studentDetails = new StudentDetails(n1, n2, n3, n4);
+//        studentDetailsList.add(studentDetails);
+//        temp.add(studentDetails);
+//
+//    }
 
-    public void deleteData() {
-        studentDetailsList.clear();
-        className.clear();
-        temp.clear();
-    }
-
-    public void addData(String n1, String n2, String n3, String n4) {
-        studentDetails = new StudentDetails(n1, n2, n3, n4);
-        studentDetailsList.add(studentDetails);
-        temp.add(studentDetails);
-
-    }
 
 
     @Override
@@ -156,16 +153,16 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         studentDetailsList.clear();
         studentDetailsList.addAll(temp);
         mAdapter.notifyDataSetChanged();
-        final List<StudentDetails> filteredModelList = filter(temp, newText);
+        final ArrayList<StudentDetails> filteredModelList = filter(temp, newText);
         mAdapter.animateTo(filteredModelList);
         recyclerView.scrollToPosition(0);
         return true;
     }
 
-    private List<StudentDetails> filter(List<StudentDetails> models, String query) {
+    private ArrayList<StudentDetails> filter(ArrayList<StudentDetails> models, String query) {
         query = query.toLowerCase();
 
-        final List<StudentDetails> filteredModelList = new ArrayList<>();
+        final ArrayList<StudentDetails> filteredModelList = new ArrayList<>();
         for (StudentDetails model : models) {
             final String text = model.getName().toLowerCase();
             final String id = model.getId().toLowerCase();

@@ -187,7 +187,6 @@ public class TinyDB {
     /**
      * Get int value from SharedPreferences at 'key'. If key not found, return 'defaultValue'
      * @param key SharedPreferences key
-     * @param defaultValue int value returned if key was not found
      * @return int value at 'key' or 'defaultValue' if key not found
      */
     public int getInt(String key) {
@@ -223,7 +222,6 @@ public class TinyDB {
     /**
      * Get float value from SharedPreferences at 'key'. If key not found, return 'defaultValue'
      * @param key SharedPreferences key
-     * @param defaultValue float value returned if key was not found
      * @return float value at 'key' or 'defaultValue' if key not found
      */
     public float getFloat(String key) {
@@ -284,7 +282,6 @@ public class TinyDB {
     /**
      * Get boolean value from SharedPreferences at 'key'. If key not found, return 'defaultValue'
      * @param key SharedPreferences key
-     * @param defaultValue boolean value returned if key was not found
      * @return boolean value at 'key' or 'defaultValue' if key not found
      */
     public boolean getBoolean(String key) {
@@ -311,11 +308,11 @@ public class TinyDB {
         return newList;
     }
 
-    public ArrayList<StudentDetails> getListObject(String key, StudentDetails mClass) {
+    public ArrayList<StudentDetails> getListObjectStudent(String key, StudentDetails mClass) {
         Gson gson = new Gson();
 
         ArrayList<String> objStrings = getListString(key);
-        ArrayList<StudentDetails> objects = new ArrayList<StudentDetails>();
+        ArrayList<StudentDetails> objects = new ArrayList<>();
 
         for (String jObjString : objStrings) {
             StudentDetails value = gson.fromJson(jObjString, (Type) mClass);
@@ -327,14 +324,14 @@ public class TinyDB {
 
     // Put methods
 
-    public ArrayList<Object> getListObjectMail(String key, Class<?> mClass) {
+    public ArrayList<PreviousMailModel> getListObjectMail(String key, StudentDetails mClass) {
         Gson gson = new Gson();
 
         ArrayList<String> objStrings = getListString(key);
-        ArrayList<Object> objects = new ArrayList<Object>();
+        ArrayList<PreviousMailModel> objects = new ArrayList<>();
 
         for (String jObjString : objStrings) {
-            Object value = gson.fromJson(jObjString, mClass);
+            PreviousMailModel value = gson.fromJson(jObjString, (Type) mClass);
             objects.add(value);
         }
         return objects;
@@ -558,7 +555,6 @@ public class TinyDB {
 
     /**
      * null keys would corrupt the shared pref file and make them unreadable this is a preventive measure
-     * @param the pref key
      */
     public void checkForNullKey(String key) {
         if (key == null) {
@@ -567,7 +563,6 @@ public class TinyDB {
     }
     /**
      * null keys would corrupt the shared pref file and make them unreadable this is a preventive measure
-     * @param the pref key
      */
     public void checkForNullValue(String value) {
         if (value == null) {

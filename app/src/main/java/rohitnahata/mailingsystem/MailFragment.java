@@ -28,14 +28,12 @@ import com.nononsenseapps.filepicker.FilePickerActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetails;
-import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -43,13 +41,13 @@ import rohitnahata.mailingsystem.Utils.TinyDB;
  */
 public class MailFragment extends Fragment implements View.OnClickListener{
 
-    TinyDB tinyDB;
-    ArrayList<StudentDetails> studentDetailsList;
+    //    TinyDB tinyDB;
+//    SharedPreferences sharedpreferences;
     private EditText editTextEmail;
     private EditText editTextSubject;
     private EditText editTextMessage;
     private String timeSent;
-    private List<Uri> filepath=null;
+    private ArrayList<Uri> filepath = null;
     private String message;
     private String subject;
     private ArrayList<String> strFilePath;
@@ -58,12 +56,13 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     private String allEmails;
     private InternetAddress[] recipientAddress;
     private int emailFieldsUsed;
-    private StudentDetails studentDetails;
     private LinearLayout extraEmailsLayout;
     private LinearLayout extraAttachmentsLayoutRoot;
     private LinearLayout extraAttachmentsLayout;
-    private ArrayList<PreviousMailModel> previousMailModelArrayList;
     private Button addEmail;
+    private ArrayList<StudentDetails> studentDetailsList;
+    private ArrayList<String> className;
+    private ArrayList<PreviousMailModel> previousMailModelArrayList;
 
 
     public MailFragment() {
@@ -103,14 +102,17 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                          ViewGroup container,
                          Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        className = ((App) getContext().getApplicationContext()).getClassName();
+        studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
         filepath=new ArrayList<>();
         strFilePath=new ArrayList<>();
         strFilePathString=new ArrayList<>();
 //        previousMailModelArrayList=new ArrayList<>()
-        tinyDB = new TinyDB(getContext());
+//        tinyDB = new TinyDB(getContext());
         View view = inflater.inflate(R.layout.fragment_mail, container, false);
         setHasOptionsMenu(true);
         emailFieldsUsed=0;
+//        sharedpreferences=getActivity().getSharedPreferences("MY_PREF", Context.MODE_PRIVATE);
         editTextSubject = (EditText) view.findViewById(R.id.editTextSubject);
         editTextMessage = (EditText)view.findViewById(R.id.editTextMessage);
         addEmail=(Button)view.findViewById(R.id.addEmail);
@@ -121,9 +123,14 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
-        studentDetailsList = tinyDB.getListObject("classStudents", studentDetails);
-        System.out.println(studentDetailsList);
         buttonSend.setOnClickListener(this);
+        return view;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         addEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,45 +154,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
 
         });
 
-        return view;
     }
-
-    //Filepicker
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
-            if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, true)) {
-                // For JellyBean and above
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    ClipData clip = data.getClipData();
-
-                    if (clip != null) {
-                        extraAttachmentsLayoutRoot.setVisibility(View.VISIBLE);
-                        for (int i = 0; i < clip.getItemCount(); i++) {
-                            Uri uri = clip.getItemAt(i).getUri();
-                            filepath.add(uri);
-//                            filepath=uri;
-                            LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            TextView tv = new TextView(getContext());
-                            String tp = String.valueOf(uri).substring(7);
-                            tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
-                            tv.setPadding(0, 5, 0, 10);
-                            tv.setLayoutParams(lparams);
-                            extraAttachmentsLayout.addView(tv);
-                        }
-                    }
-                    // For Ice Cream Sandwich
-                } 
-            } else {
-                Uri uri = data.getData();
-
-                // Do something with the URI
-            }
-        }
-    }
-
 
     public   boolean isValidEmail(CharSequence target) {
         return /*!TextUtils.isEmpty(target) &&  */android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
@@ -335,6 +304,39 @@ public class MailFragment extends Fragment implements View.OnClickListener{
 
 
     }
+
+    //Filepicker
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, true)) {
+                // For JellyBean and above
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    ClipData clip = data.getClipData();
+
+                    if (clip != null) {
+                        extraAttachmentsLayoutRoot.setVisibility(View.VISIBLE);
+                        for (int i = 0; i < clip.getItemCount(); i++) {
+                            Uri uri = clip.getItemAt(i).getUri();
+                            filepath.add(uri);
+//                            filepath=uri;
+                            LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            TextView tv = new TextView(getContext());
+                            String tp = String.valueOf(uri).substring(7);
+                            tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
+                            tv.setPadding(0, 5, 0, 10);
+                            tv.setLayoutParams(lparams);
+                            extraAttachmentsLayout.addView(tv);
+                        }
+                    }
+                    // For Ice Cream Sandwich
+                }
+            }
+        }
+    }
+
 
     private void clearFields(int emailField){
         switch (emailField) {

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rohitnahata.mailingsystem.Models.StudentDetails;
@@ -16,9 +17,9 @@ import rohitnahata.mailingsystem.R;
  */
 public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAdapter.MyViewHolder> {
 
-    private List<StudentDetails> studentDetails;
+    private ArrayList<StudentDetails> studentDetails;
 
-    public StudentDetailsAdapter(List<StudentDetails> studentDetails) {
+    public StudentDetailsAdapter(ArrayList<StudentDetails> studentDetails) {
         this.studentDetails = studentDetails;
     }
 

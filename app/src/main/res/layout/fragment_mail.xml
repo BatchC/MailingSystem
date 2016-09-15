@@ -23,12 +23,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/recipient_email" />
 
-            <MultiAutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:completionThreshold="1"
+            <!--<MultiAutoCompleteTextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:completionThreshold="1"-->
 
-                />
+            <!--/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
