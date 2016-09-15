@@ -24,6 +24,7 @@ import rohitnahata.mailingsystem.Adapters.PreviousMailsAdapter;
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 import rohitnahata.mailingsystem.Utils.ItemClickSupport;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -32,7 +33,7 @@ import rohitnahata.mailingsystem.Utils.ItemClickSupport;
 public class PreviousMailsFragment extends Fragment implements SearchView.OnQueryTextListener{
 
     View view;
-    //    TinyDB tinyDB;
+    TinyDB tinyDB;
     private ArrayList<PreviousMailModel> previousMailModelList;
     private ArrayList<PreviousMailModel> tempList = new ArrayList<>();
     private RecyclerView recyclerView;

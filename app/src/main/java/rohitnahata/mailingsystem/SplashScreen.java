@@ -13,9 +13,11 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 
 import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 public class SplashScreen extends AppCompatActivity {
 
+    TinyDB tinyDB;
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<String> className;
 
@@ -23,6 +25,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        tinyDB = new TinyDB(getBaseContext());
     }
 
     @Override
@@ -40,7 +43,7 @@ public class SplashScreen extends AppCompatActivity {
             new Firebase(strings[0]).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
+                    System.out.println(studentDetailsList);
                     deleteData();
                     for (DataSnapshot alert : dataSnapshot.getChildren()) {
                         String strClass = alert.getKey();
@@ -59,8 +62,6 @@ public class SplashScreen extends AppCompatActivity {
                 public void onCancelled(FirebaseError firebaseError) {
                 }
             });
-//            ((App) getBaseContext().getApplicationContext()).setClassName(className);
-//            ((App) getBaseContext().getApplicationContext()).setStudentDetailsList(studentDetailsList);
 //
             return null;
         }
@@ -74,11 +75,6 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            System.out.println(className + "  blabla");
-            System.out.println(((App) getBaseContext().getApplicationContext()).getClassName() + "  blabla");
-            System.out.println(studentDetailsList + "  blabla2");
-            System.out.println(((App) getBaseContext().getApplicationContext()).getStudentDetailsList() + "  blabla2");
-
             Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
 
@@ -88,11 +84,9 @@ public class SplashScreen extends AppCompatActivity {
         public void deleteData() {
             if (studentDetailsList != null) {
                 studentDetailsList.clear();
-                System.out.println("aaaaaaaa");
             }
             if (className != null) {
                 className.clear();
-                System.out.println("aaaaaaaa");
             }
         }
 
@@ -100,7 +94,6 @@ public class SplashScreen extends AppCompatActivity {
             StudentDetails studentDetails = new StudentDetails(n1, n2, n3, n4);
 //            System.out.println(studentDetails);
             studentDetailsList.add(studentDetails);
-
         }
 
 

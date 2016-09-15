@@ -1,6 +1,5 @@
 package rohitnahata.mailingsystem;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -94,50 +93,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                         return true; // Return true to expand action view
                     }
                 });
-
     }
-
-
-//        sharedPreferences=get
-
-//        new Firebase(App.BASE_URL).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                deleteData();
-//                for (DataSnapshot alert : dataSnapshot.getChildren()) {
-//                    strClass = alert.getKey();
-//                    className.add(alert.getKey());
-//                    for (DataSnapshot recipient : alert.getChildren()) {
-//                        strEmail = (String) recipient.child("email_id").getValue();
-//                        strName = (String) recipient.child("student_name").getValue();
-//                        strUID = (String) recipient.child("id").getValue();
-//                        addData(strUID, strName, strEmail, strClass);
-//                    }
-//                }
-//                mAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//            }
-//        });
-
-
-//    public void deleteData() {
-//        studentDetailsList.clear();
-//        className.clear();
-//        temp.clear();
-//    }
-//
-//    public void addData(String n1, String n2, String n3, String n4) {
-//        studentDetails = new StudentDetails(n1, n2, n3, n4);
-//        studentDetailsList.add(studentDetails);
-//        temp.add(studentDetails);
-//
-//    }
-
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {

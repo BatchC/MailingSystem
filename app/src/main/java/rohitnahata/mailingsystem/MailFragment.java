@@ -35,6 +35,7 @@ import javax.mail.internet.InternetAddress;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Utils.TinyDB;
 
 
 /**
@@ -43,7 +44,7 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
 public class MailFragment extends Fragment implements View.OnClickListener{
 
     View view;
-    //    TinyDB tinyDB;
+    TinyDB tinyDB;
 //    SharedPreferences sharedPreferences;
     private EditText editTextEmail;
     private EditText editTextSubject;
@@ -102,6 +103,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tinyDB = new TinyDB(getContext());
         previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
         filepath = new ArrayList<>();
         strFilePath = new ArrayList<>();
@@ -318,6 +320,8 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         PreviousMailModel previousMailModel = new PreviousMailModel(recipient, subject, body, timeSent, strFilePathString);
         System.out.println("llllllllll" + previousMailModel);
         previousMailModelList.add(previousMailModel);
+        ((App) this.getActivity().getApplication()).setPreviousMailModelList(previousMailModelList);
+
         if (extraAttachmentsLayout.getChildCount() > 0)
             extraEmailsLayout.removeAllViews();
 

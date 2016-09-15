@@ -23,10 +23,12 @@ public class App extends android.app.Application {
     private ArrayList<PreviousMailModel> previousMailModelList;
 
     public ArrayList<PreviousMailModel> getPreviousMailModelList() {
+        previousMailModelList = tinyDB.getListObjectMail("mailList", PreviousMailModel.class);
         return previousMailModelList;
     }
 
     public void setPreviousMailModelList(ArrayList<PreviousMailModel> previousMailModelList) {
+        tinyDB.putListObjectMail("classList", previousMailModelList);
         this.previousMailModelList = previousMailModelList;
     }
 
@@ -53,17 +55,12 @@ public class App extends android.app.Application {
         if (!FirebaseApp.getApps(this).isEmpty()) {
             Firebase.getDefaultConfig().setPersistenceEnabled(true);
         }
+        studentDetailsList = new ArrayList<>();
+        className = new ArrayList<>();
         tinyDB = new TinyDB(getBaseContext());
-//        previousMailModelList = new ArrayList<>();
-//        className = new ArrayList<>();
-//        studentDetailsList = new ArrayList<>();
         previousMailModelList = tinyDB.getListObjectMail("mailList", PreviousMailModel.class);
-        studentDetailsList = tinyDB.getListObjectStudent("classList", StudentDetails.class);
         if (previousMailModelList == null)
             previousMailModelList = new ArrayList<>();
-        if (studentDetailsList == null)
-            studentDetailsList = new ArrayList<>();
-        className = new ArrayList<>();
 
 
     }
