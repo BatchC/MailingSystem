@@ -7,14 +7,36 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="rohitnahata.mailingsystem.SplashScreen">
+    tools:context="rohitnahata.mailingsystem.SplashScreen"
+    android:background="#673ab7"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Mailing System"
+        android:id="@+id/splashScreenTitle"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="WELCOME!"
-        android:textSize="50sp" />
+        android:layout_marginTop="40dp"
+        android:textSize="35dp"
+        android:gravity="center_horizontal"
+        android:textColor="#448aff"
+        android:textStyle="bold"
+        android:shadowColor="#0000ff"
 
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splashScreenImage"
+        android:src="@drawable/splash_screen1"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp"
+        android:layout_below="@+id/splashScreenTitle"
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

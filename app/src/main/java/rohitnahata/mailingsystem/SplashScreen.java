@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -23,6 +27,15 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        Animation animFade = AnimationUtils.loadAnimation(this,R.anim.splashscreen_titletext);
+        TextView textView = (TextView) findViewById(R.id.splashScreenTitle);
+        textView.setAnimation(animFade);
+        Animation animBounce = AnimationUtils.loadAnimation(this,R.anim.splashscreen_image);
+        ImageView imageView = (ImageView)findViewById(R.id.splashScreenImage);
+        imageView.setAnimation(animBounce);
+
+
         className = ((App) this.getApplication()).getClassName();
         studentDetailsList = ((App) this.getApplication()).getStudentDetailsList();
         new PrefetchData().execute(App.BASE_URL);

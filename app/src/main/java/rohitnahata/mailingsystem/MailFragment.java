@@ -123,6 +123,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
+
         buttonSend.setOnClickListener(this);
         return view;
     }
