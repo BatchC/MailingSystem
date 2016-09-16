@@ -39,7 +39,10 @@ public class App extends android.app.Application {
         Type type = new TypeToken<ArrayList<PreviousMailModel>>() {
         }.getType();
         previousMailModelList = gson.fromJson(json, type);
-        return previousMailModelList;
+        if (previousMailModelList != null)
+            return previousMailModelList;
+        else
+            return new ArrayList<PreviousMailModel>();
 
     }
 
@@ -52,18 +55,18 @@ public class App extends android.app.Application {
     }
 
     public ArrayList<StudentDetails> getStudentDetailsList() {
-        String json = sharedPrefs.getString(PREVIOUS_MAIL_MODEL_LIST, null);
-        Type type = new TypeToken<ArrayList<PreviousMailModel>>() {
-        }.getType();
-        previousMailModelList = gson.fromJson(json, type);
+//        String json = sharedPrefs.getString(PREVIOUS_MAIL_MODEL_LIST, null);
+//        Type type = new TypeToken<ArrayList<PreviousMailModel>>() {
+//        }.getType();
+//        previousMailModelList = gson.fromJson(json, type);
         return studentDetailsList;
     }
 
     public void setStudentDetailsList(ArrayList<StudentDetails> studentDetailsList) {
-        editor = sharedPrefs.edit();
-        String json = gson.toJson(previousMailModelList);
-        editor.putString(PREVIOUS_MAIL_MODEL_LIST, json);
-        editor.apply();
+//        editor = sharedPrefs.edit();
+//        String json = gson.toJson(previousMailModelList);
+//        editor.putString(PREVIOUS_MAIL_MODEL_LIST, json);
+//        editor.apply();
         this.studentDetailsList = studentDetailsList;
     }
 

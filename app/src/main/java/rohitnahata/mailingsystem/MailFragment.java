@@ -4,12 +4,16 @@ package rohitnahata.mailingsystem;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -42,7 +46,7 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MailFragment extends Fragment implements View.OnClickListener{
+public class MailFragment extends Fragment {
 
     View view;
     ArrayAdapter<String> adapter;
@@ -122,7 +126,6 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_mail, container, false);
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -140,7 +143,12 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
-        buttonSend.setOnClickListener(this);
+        buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMailButton();
+            }
+        });
 //        adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,className);
 
 
@@ -218,9 +226,27 @@ public class MailFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = connectivityManager.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
+
     //Send Mail button
-    @Override
-    public void onClick(View v) {
+    public void sendMailButton() {
+
         String email = editTextEmail.getText().toString().trim();
         subject = editTextSubject.getText().toString().trim();
         message = editTextMessage.getText().toString().trim();
@@ -242,6 +268,19 @@ public class MailFragment extends Fragment implements View.OnClickListener{
             Toast.makeText(getContext(),"Enter a vaid email id",Toast.LENGTH_SHORT).show();
             return;
 
+        }
+        if (!haveNetworkConnection()) {
+            Snackbar snackbar = Snackbar
+                    .make(view.findViewById(R.id.mailLinearLayout), "No Internet Connection", Snackbar.LENGTH_LONG)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            sendMailButton();
+                        }
+                    });
+
+            snackbar.show();
+            return;
         }
 //        if(email.indexOf(';')!=-1)
 //        {
@@ -277,7 +316,7 @@ public class MailFragment extends Fragment implements View.OnClickListener{
                     }
                 }
                 if(!isValidEmail(aTemp)&&aTemp.indexOf(';')==-1){
-                    Toast.makeText(getContext(),"Email Address "+i+" is not valid",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Email Address " + i + " is not valid", Toast.LENGTH_LONG).show();
                     recipientsPresent=0;
                     break;
                 }
