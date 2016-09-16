@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="50sp"
     android:paddingEnd="8sp"
     android:paddingStart="8sp"
@@ -166,21 +167,35 @@
 
             </LinearLayout>
 
+            <!--<Button-->
+                <!--android:id="@+id/buttonSend"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:background="@drawable/send_button"-->
+                <!--android:fontFamily="sans-serif-medium"-->
+                <!--android:minWidth="88sp"-->
+                <!--android:paddingLeft="16dp"-->
+                <!--android:paddingRight="16dp"-->
+                <!--android:text="@string/send"-->
+                <!--android:textColor="#f3e5f5"-->
+                <!--android:textSize="14pt"-->
+                <!--android:paddingBottom="8.5dp"-->
+                <!--android:paddingTop="8.5dp"-->
+                <!--/>-->
             <Button
                 android:id="@+id/buttonSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:height="36sp"
-                android:background="@drawable/send_button"
-                android:elevation="2sp"
-                android:fontFamily="sans-serif"
-                android:minWidth="88sp"
-                android:paddingLeft="16sp"
-                android:paddingRight="16sp"
                 android:text="@string/send"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="sans-serif-medium"
+                android:theme="@style/MyButton"
+                android:minWidth="88dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
                 android:textColor="#f3e5f5"
-                android:textSize="14pt"
+                android:textSize="10pt"
                 />
 
         </LinearLayout>
