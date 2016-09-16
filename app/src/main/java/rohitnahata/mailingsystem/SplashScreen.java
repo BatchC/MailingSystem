@@ -37,7 +37,7 @@ public class SplashScreen extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(String... strings) {
-            new Firebase(strings[0]).addListenerForSingleValueEvent(new ValueEventListener() {
+            new Firebase(strings[0]).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     deleteData();
