@@ -25,7 +25,7 @@
                 <!--android:layout_height="wrap_content"-->
                 <!--android:text="@string/recipient_email" />-->
 
-            <!--<MultiAutoCompleteTextView-->
+            <!--<AutoCompleteTextView-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
             <!--android:completionThreshold="1"-->
@@ -38,12 +38,27 @@
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <EditText
+                <!--<EditText-->
+                <!--android:id="@+id/editTextEmail"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight=".95"-->
+                <!--android:background="@null"-->
+                <!--android:fontFamily="sans-serif"-->
+                <!--android:gravity="center_vertical|start"-->
+                <!--android:hint="@string/to"-->
+                <!--android:inputType="textEmailAddress"-->
+                <!--android:minHeight="?listPreferredItemHeight"-->
+                <!--android:paddingTop="20sp"-->
+                <!--/>-->
+
+                <AutoCompleteTextView
                     android:id="@+id/editTextEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".95"
                     android:background="@null"
+                    android:completionThreshold="1"
                     android:fontFamily="sans-serif"
                     android:gravity="center_vertical|start"
                     android:hint="@string/to"
