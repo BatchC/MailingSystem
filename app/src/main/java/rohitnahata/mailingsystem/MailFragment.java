@@ -140,14 +140,7 @@ public class MailFragment extends Fragment {
 //        extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
-//        editTextEmail = (EditText) view.findViewById(R.id.editTextEmail);
-
-//        System.out.println("zzzzzzzz");
-        System.out.print(studentDetailsList);
-//        System.out.println("zzzzzzzz");
-
         txtSearch = (AutoCompleteTextView) view.findViewById(R.id.editTextEmail);
-        txtSearch.setThreshold(1);
         adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, R.id.lbl_name, studentDetailsList);
         txtSearch.setAdapter(adapter);
 
@@ -159,8 +152,6 @@ public class MailFragment extends Fragment {
                 sendMailButton();
             }
         });
-//        adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,className);
-
 
         addEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,6 +252,22 @@ public class MailFragment extends Fragment {
         message = editTextMessage.getText().toString().trim();
         int recipientsPresent = 1;
 //        email = email.replaceAll(",",";");
+
+        if (!haveNetworkConnection()) {
+            Snackbar snackbar = Snackbar
+                    .make(view.findViewById(R.id.mailLinearLayout), "No Internet Connection", Snackbar.LENGTH_LONG)
+                    .setAction("RETRY", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            sendMailButton();
+                        }
+                    });
+
+            snackbar.show();
+            return;
+        }
+
+
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getContext(),"Enter an email id",Toast.LENGTH_SHORT).show();
             return;
@@ -278,19 +285,7 @@ public class MailFragment extends Fragment {
             return;
 
         }
-        if (!haveNetworkConnection()) {
-            Snackbar snackbar = Snackbar
-                    .make(view.findViewById(R.id.mailLinearLayout), "No Internet Connection", Snackbar.LENGTH_LONG)
-                    .setAction("RETRY", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            sendMailButton();
-                        }
-                    });
 
-            snackbar.show();
-            return;
-        }
 //        if(email.indexOf(';')!=-1)
 //        {
 //            recipientsPresent =2;
@@ -306,7 +301,7 @@ public class MailFragment extends Fragment {
 //        }
         if(isValidEmail(email)&& email.indexOf(';')==-1)//basically recipients present is equal to 1
         {
-            System.out.println(email);
+//            System.out.println(email);
             recipientAddress=new InternetAddress[emailFieldsUsed+1];
             temp=new String[emailFieldsUsed+1];
             allEmails=email;

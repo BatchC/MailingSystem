@@ -42,7 +42,7 @@ public class App extends android.app.Application {
         if (previousMailModelList != null)
             return previousMailModelList;
         else
-            return new ArrayList<PreviousMailModel>();
+            return new ArrayList<>();
 
     }
 
@@ -55,26 +55,40 @@ public class App extends android.app.Application {
     }
 
     public ArrayList<StudentDetails> getStudentDetailsList() {
-//        String json = sharedPrefs.getString(PREVIOUS_MAIL_MODEL_LIST, null);
-//        Type type = new TypeToken<ArrayList<PreviousMailModel>>() {
-//        }.getType();
-//        previousMailModelList = gson.fromJson(json, type);
-        return studentDetailsList;
+        String json = sharedPrefs.getString(STUDENTS_LIST, null);
+        Type type = new TypeToken<ArrayList<StudentDetails>>() {
+        }.getType();
+        studentDetailsList = gson.fromJson(json, type);
+        if (studentDetailsList != null)
+            return studentDetailsList;
+        else
+            return new ArrayList<>();
     }
 
     public void setStudentDetailsList(ArrayList<StudentDetails> studentDetailsList) {
-//        editor = sharedPrefs.edit();
-//        String json = gson.toJson(previousMailModelList);
-//        editor.putString(PREVIOUS_MAIL_MODEL_LIST, json);
-//        editor.apply();
+        editor = sharedPrefs.edit();
+        String json = gson.toJson(studentDetailsList);
+        editor.putString(STUDENTS_LIST, json);
+        editor.apply();
         this.studentDetailsList = studentDetailsList;
     }
 
     public ArrayList<String> getClassName() {
-        return className;
+        String json = sharedPrefs.getString(CLASSROOM_LIST, null);
+        Type type = new TypeToken<ArrayList<String>>() {
+        }.getType();
+        className = gson.fromJson(json, type);
+        if (className != null)
+            return className;
+        else
+            return new ArrayList<>();
     }
 
     public void setClassName(ArrayList<String> className) {
+        editor = sharedPrefs.edit();
+        String json = gson.toJson(className);
+        editor.putString(CLASSROOM_LIST, json);
+        editor.apply();
         this.className = className;
     }
 
@@ -85,8 +99,6 @@ public class App extends android.app.Application {
         if (!FirebaseApp.getApps(this).isEmpty()) {
             Firebase.getDefaultConfig().setPersistenceEnabled(true);
         }
-        studentDetailsList = new ArrayList<>();
-        className = new ArrayList<>();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         gson = new Gson();
     }

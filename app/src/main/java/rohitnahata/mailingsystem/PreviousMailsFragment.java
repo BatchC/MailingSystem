@@ -33,7 +33,7 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
 
     View view;
     private ArrayList<PreviousMailModel> previousMailModelList;
-    private ArrayList<PreviousMailModel> tempList = new ArrayList<>();
+    private ArrayList<PreviousMailModel> tempList;
     private RecyclerView recyclerView;
     private PreviousMailsAdapter mAdapter;
 
