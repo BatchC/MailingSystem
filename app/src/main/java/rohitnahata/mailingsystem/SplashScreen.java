@@ -17,6 +17,8 @@ import rohitnahata.mailingsystem.Models.StudentDetails;
 public class SplashScreen extends AppCompatActivity {
 
     private ArrayList<StudentDetails> studentDetailsList;
+    private ArrayList<StudentDetails> temp;
+
     private ArrayList<String> className;
 
     @Override
@@ -41,6 +43,7 @@ public class SplashScreen extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     deleteData();
+                    temp = new ArrayList<>(studentDetailsList);
                     for (DataSnapshot alert : dataSnapshot.getChildren()) {
                         String strClass = alert.getKey();
                         className.add(alert.getKey());
@@ -51,17 +54,18 @@ public class SplashScreen extends AppCompatActivity {
                             addData(strUID, strName, strEmail, strClass);
                         }
                     }
+                    ((App) getApplication()).setStudentDetailsList(studentDetailsList);
+                    ((App) getApplication()).setClassName(className);
+
                 }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
+                    System.out.println("Error");
+                    studentDetailsList = new ArrayList<>(temp);
                 }
             });
-            ((App) getApplication()).setStudentDetailsList(studentDetailsList);
-            ((App) getApplication()).setClassName(className);
 
-
-//
             return null;
         }
 
