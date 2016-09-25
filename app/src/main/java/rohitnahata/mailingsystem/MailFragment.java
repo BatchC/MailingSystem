@@ -61,6 +61,7 @@ public class MailFragment extends Fragment {
     private ArrayList<String> strFilePath;
     private ArrayList<String> strFilePathString;
     private String[] temp;
+    private ArrayList<String> tempEmail;
     private String allEmails;
     private InternetAddress[] recipientAddress;
     private int emailFieldsUsed;
@@ -68,8 +69,7 @@ public class MailFragment extends Fragment {
     private LinearLayout extraAttachmentsLayoutRoot;
     private LinearLayout extraAttachmentsLayout;
     private Button addEmail;
-    private ArrayList<StudentDetails> studentDetailsList;
-    private ArrayList<String> className;
+    private ArrayList<StudentDetails> studentDetailsListForSuggestions;
     private ArrayList<PreviousMailModel> previousMailModelList;
 
 
@@ -108,8 +108,10 @@ public class MailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
-        className = ((App) getContext().getApplicationContext()).getClassName();
-        studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
+        ArrayList<StudentDetails> className = ((App) getContext().getApplicationContext()).getClassName();
+        ArrayList<StudentDetails> studentDetailsList = ((App) getContext().getApplicationContext()).getStudentDetailsList();
+        studentDetailsListForSuggestions = new ArrayList<>(className);
+        studentDetailsListForSuggestions.addAll(studentDetailsList);
         filepath = new ArrayList<>();
         strFilePath = new ArrayList<>();
         strFilePathString = new ArrayList<>();
@@ -131,6 +133,7 @@ public class MailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        tempEmail = new ArrayList<>();
         editTextSubject = (EditText) view.findViewById(R.id.editTextSubject);
         editTextMessage = (EditText) view.findViewById(R.id.editTextMessage);
         addEmail = (Button) view.findViewById(R.id.addEmail);
@@ -141,7 +144,7 @@ public class MailFragment extends Fragment {
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         txtSearch = (AutoCompleteTextView) view.findViewById(R.id.editTextEmail);
-        adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, R.id.lbl_name, studentDetailsList);
+        adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, R.id.lbl_name, studentDetailsListForSuggestions);
         txtSearch.setAdapter(adapter);
 
 
@@ -192,7 +195,7 @@ public class MailFragment extends Fragment {
     }
 
     private void sendEmail() {
-        Log.i("mail","mailme");
+        Log.i("mail", "mailMe");
         //Getting content for email
         SendMail sm;
 
@@ -212,7 +215,7 @@ public class MailFragment extends Fragment {
 
         sm=new SendMail(getContext(),recipientAddress,subject,message,strFilePath,strFilePathString);
 
-        //Executing sendmail to send email :p
+        //Executing sendmail to send email....
         sm.execute();
         txtSearch.setText("");
         editTextMessage.setText("");
@@ -306,11 +309,13 @@ public class MailFragment extends Fragment {
             temp=new String[emailFieldsUsed+1];
             allEmails=email;
             temp[0]= email;
+        } else {
+
         }
 
         if(emailFieldsUsed>0){
             String aTemp;
-            int j=0;//used for actual temp array. a filed might be left blank
+            int j = 0;//used for actual temp array. a field might be left blank
             for(int i=1;i<=emailFieldsUsed;i++){
                 aTemp=storeAddressInArray(i);
                 if(i==emailFieldsUsed){

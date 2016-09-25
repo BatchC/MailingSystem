@@ -18,13 +18,18 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
     Context context;
     int resource, textViewResourceId;
     List<StudentDetails> items, tempItems, suggestions;
+    int flag = 0;
     /**
      * Custom Filter implementation for custom suggestions we provide.
      */
     Filter nameFilter = new Filter() {
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((StudentDetails) resultValue).getEmail_id();
+            String temp = ((StudentDetails) resultValue).getEmail_id();
+            if (!temp.equals(""))
+                return ((StudentDetails) resultValue).getEmail_id();
+            else
+                return ((StudentDetails) resultValue).getClassroom();
         }
 
         @Override
@@ -32,7 +37,9 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
             if (constraint != null) {
                 suggestions.clear();
                 for (StudentDetails people : tempItems) {
-                    if (people.getName().toLowerCase().contains(constraint.toString().toLowerCase()))
+                    if (people.getClassroom().toLowerCase().contains(constraint.toString().toLowerCase()))
+                        suggestions.add(people);
+                    else if (people.getName().toLowerCase().contains(constraint.toString().toLowerCase()))
                         suggestions.add(people);
                     else if (people.getEmail_id().toLowerCase().contains(constraint.toString().toLowerCase()))
                         suggestions.add(people);
@@ -79,7 +86,7 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
         StudentDetails people = items.get(position);
         if (people != null) {
             TextView lblName = (TextView) view.findViewById(R.id.lbl_name);
-            String tp = people.getName() + " " + people.getEmail_id() + " " + people.getClassroom();
+            String tp = people.getClassroom() + "\n" + people.getName() + "\n" + people.getEmail_id();
             lblName.setText(tp);
         }
         return view;

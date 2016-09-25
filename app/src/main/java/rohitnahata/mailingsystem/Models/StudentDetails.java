@@ -50,15 +50,15 @@ public class StudentDetails {
         return email_id;
     }
 
-    public void setEmail_id(String email_id) {
-        this.email_id = email_id;
-    }
+//    public void setEmail_id(String email_id) {
+//        this.email_id = email_id;
+//    }
 
     public String getClassroom() {
         return classroom;
     }
 
-    public void setClassroom(String classroom) {
-        this.classroom = classroom;
-    }
+//    public void setClassroom(String classroom) {
+//        this.classroom = classroom;
+//    }
 }

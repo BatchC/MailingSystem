@@ -19,7 +19,7 @@ public class SplashScreen extends AppCompatActivity {
     private ArrayList<StudentDetails> studentDetailsList;
     private ArrayList<StudentDetails> temp;
 
-    private ArrayList<String> className;
+    private ArrayList<StudentDetails> className;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,8 @@ public class SplashScreen extends AppCompatActivity {
                     temp = new ArrayList<>(studentDetailsList);
                     for (DataSnapshot alert : dataSnapshot.getChildren()) {
                         String strClass = alert.getKey();
-                        className.add(alert.getKey());
+                        className_add(alert.getKey());
+//                        className.add(alert.getKey());
                         for (DataSnapshot recipient : alert.getChildren()) {
                             String strEmail = (String) recipient.child("email_id").getValue();
                             String strName = (String) recipient.child("student_name").getValue();
@@ -57,6 +58,11 @@ public class SplashScreen extends AppCompatActivity {
                     ((App) getApplication()).setStudentDetailsList(studentDetailsList);
                     ((App) getApplication()).setClassName(className);
 
+                }
+
+                private void className_add(String key) {
+                    StudentDetails classDetails = new StudentDetails("", "All Students", "", key);
+                    className.add(classDetails);
                 }
 
                 @Override

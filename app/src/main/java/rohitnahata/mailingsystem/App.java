@@ -31,7 +31,7 @@ public class App extends android.app.Application {
     Editor editor;
     Gson gson;
     private ArrayList<StudentDetails> studentDetailsList;
-    private ArrayList<String> className;
+    private ArrayList<StudentDetails> className;
     private ArrayList<PreviousMailModel> previousMailModelList;
 
     public ArrayList<PreviousMailModel> getPreviousMailModelList() {
@@ -73,9 +73,9 @@ public class App extends android.app.Application {
         this.studentDetailsList = studentDetailsList;
     }
 
-    public ArrayList<String> getClassName() {
+    public ArrayList<StudentDetails> getClassName() {
         String json = sharedPrefs.getString(CLASSROOM_LIST, null);
-        Type type = new TypeToken<ArrayList<String>>() {
+        Type type = new TypeToken<ArrayList<StudentDetails>>() {
         }.getType();
         className = gson.fromJson(json, type);
         if (className != null)
@@ -84,7 +84,7 @@ public class App extends android.app.Application {
             return new ArrayList<>();
     }
 
-    public void setClassName(ArrayList<String> className) {
+    public void setClassName(ArrayList<StudentDetails> className) {
         editor = sharedPrefs.edit();
         String json = gson.toJson(className);
         editor.putString(CLASSROOM_LIST, json);
