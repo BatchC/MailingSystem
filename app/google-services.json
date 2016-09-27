@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "182796255154",
-    "firebase_url": "https://mailing-system-c6780.firebaseio.com",
-    "project_id": "mailing-system-c6780",
-    "storage_bucket": "mailing-system-c6780.appspot.com"
+    "project_number": "866719241248",
+    "firebase_url": "https://mailing-system-b7d2c.firebaseio.com",
+    "project_id": "mailing-system-b7d2c",
+    "storage_bucket": "mailing-system-b7d2c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:182796255154:android:565c13d0e148dd37",
+        "mobilesdk_app_id": "1:866719241248:android:565c13d0e148dd37",
         "android_client_info": {
           "package_name": "rohitnahata.mailingsystem"
         }
       },
       "oauth_client": [
         {
-          "client_id": "182796255154-1objs3acboh9h8ncfeqps8re8r8cnsho.apps.googleusercontent.com",
+          "client_id": "866719241248-qfbdnvck5i9ald9olih055u5rjccqbi3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDgYQRPhyVMale17h5VHtoEzQ2ACQxjmhg"
+          "current_key": "AIzaSyAePYNvp1r_fz9tN25lzJtAJmGNH8OB_-I"
         }
       ],
       "services": {
