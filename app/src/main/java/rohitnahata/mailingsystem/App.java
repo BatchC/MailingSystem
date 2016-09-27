@@ -26,7 +26,7 @@ public class App extends android.app.Application {
     public static final String CLASSROOM_LIST = "classroomList";
 
 
-    public static String BASE_URL = "https://mailing-system-c6780.firebaseio.com/";
+    public static String BASE_URL = "https://mailing-system-cbbc1.firebaseio.com/";
     SharedPreferences sharedPrefs;
     Editor editor;
     Gson gson;
