@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,13 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        return id == R.id.settings || super.onOptionsItemSelected(item);
-
+        if (id == R.id.settings)
+            return super.onOptionsItemSelected(item);
+        if (id == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(getApplicationContext(), Login.class);
+            startActivity(i);
+        }
+        return true;
     }
+
 
     @Override
     public void onBackPressed() {
@@ -76,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new PreviousMailsFragment(), "Sent Mails");
         viewPager.setAdapter(adapter);
     }
+
+
 }
 
 
