@@ -17,12 +17,16 @@ import java.util.ArrayList;
 
 public class DetailActivity extends AppCompatActivity {
 
-    TextView recipients,body,subject,time_sent,textViewAttachment;
-    ImageView imageView;
-    String letter;
-    int color;
-    ColorGenerator generator = ColorGenerator.MATERIAL;
-    LinearLayout linearLayout;
+    private final ColorGenerator generator = ColorGenerator.MATERIAL;
+    private TextView recipients;
+    private TextView body;
+    private TextView subject;
+    private TextView time_sent;
+    private TextView textViewAttachment;
+    private ImageView imageView;
+    private String letter;
+    private int color;
+    private LinearLayout linearLayout;
 
 
     @Override

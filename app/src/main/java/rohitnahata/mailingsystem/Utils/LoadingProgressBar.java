@@ -1,8 +1,5 @@
 package rohitnahata.mailingsystem.Utils;
 
-/**
- * Created by Rohit on 30/08/2016.
- */
 
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;
@@ -13,9 +10,9 @@ import rohitnahata.mailingsystem.R;
 public class LoadingProgressBar extends AppCompatActivity {
 
     @VisibleForTesting
-    public ProgressDialog mProgressDialog;
+    private ProgressDialog mProgressDialog;
 
-    public void showProgressDialog() {
+    protected void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setMessage(getString(R.string.loading));
@@ -25,7 +22,7 @@ public class LoadingProgressBar extends AppCompatActivity {
         mProgressDialog.show();
     }
 
-    public void hideProgressDialog() {
+    protected void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }

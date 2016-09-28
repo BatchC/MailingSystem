@@ -50,11 +50,10 @@ import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 public class MailFragment extends Fragment {
 
 
-    AutoCompleteTextView txtSearch;
-    StudentSuggestionAdapter adapter;
-    ArrayList<StudentDetailsModel> className;
-    ArrayList<StudentDetailsModel> studentDetailsModelList;
-    int flag = 0;
+    private AutoCompleteTextView txtSearch;
+    private StudentSuggestionAdapter adapter;
+    private ArrayList<StudentDetailsModel> className;
+    private ArrayList<StudentDetailsModel> studentDetailsModelList;
     private View view;
     private EditText editTextSubject;
     private EditText editTextMessage;
@@ -147,7 +146,7 @@ public class MailFragment extends Fragment {
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         txtSearch = (AutoCompleteTextView) view.findViewById(R.id.editTextEmail);
-        adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, R.id.lbl_name, studentDetailsModelListForSuggestions);
+        adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, studentDetailsModelListForSuggestions);
         txtSearch.setAdapter(adapter);
 
 
@@ -193,7 +192,7 @@ public class MailFragment extends Fragment {
     }
 
 
-    public   boolean isValidEmail(CharSequence target) {
+    private boolean isValidEmail(CharSequence target) {
         return /*!TextUtils.isEmpty(target) &&  */android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
@@ -251,7 +250,7 @@ public class MailFragment extends Fragment {
     }
 
     //Send Mail button
-    public void sendMailButton() {
+    private void sendMailButton() {
 
         String email = txtSearch.getText().toString().trim();
         subject = editTextSubject.getText().toString().trim();
@@ -305,6 +304,7 @@ public class MailFragment extends Fragment {
 //            }
 //            recipientAddress = new InternetAddress[temp.length];
 //        }
+        int flag;
         if(isValidEmail(email)&& email.indexOf(';')==-1)//basically recipients present is equal to 1
         {
             tempEmail.add(email);
@@ -325,8 +325,7 @@ public class MailFragment extends Fragment {
                     }
                     break;
                 }
-                if (flag == 1)
-                    break;
+
             }
             if (flag == 0) {
                 Toast.makeText(getContext(), "Email Address is not valid", Toast.LENGTH_LONG).show();
@@ -341,11 +340,9 @@ public class MailFragment extends Fragment {
                 aTemp=storeAddressInArray(i);
                 if(i==emailFieldsUsed){
                     if(!isValidEmail(aTemp)){
-                        flag = 0;
                         for (StudentDetailsModel name : className) {
                             if (Objects.equals(aTemp, name.getClassroom())) {
                                 allEmails += aTemp + "\n";
-                                flag = 1;
                                 for (StudentDetailsModel temp : studentDetailsModelList) {
                                     if (Objects.equals(temp.getClassroom(), aTemp)) {
                                         tempEmail.add(temp.getEmail_id());
@@ -353,8 +350,7 @@ public class MailFragment extends Fragment {
                                 }
                                 break;
                             }
-                            if (flag == 1)
-                                break;
+
                         }
                         //recipientAddress=new InternetAddress[emailFieldsUsed];
                         break;
@@ -373,8 +369,7 @@ public class MailFragment extends Fragment {
                             }
                             break;
                         }
-                        if (flag == 1)
-                            break;
+
                     }
                     if (flag == 0) {
                         Toast.makeText(getContext(), "Email Address " + i + " is not valid", Toast.LENGTH_LONG).show();

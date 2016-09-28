@@ -12,12 +12,10 @@ import java.util.List;
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 import rohitnahata.mailingsystem.R;
 
-/**
- * Created by Rohit on 05/09/2016.
- */
+
 public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAdapter.MyViewHolder> {
 
-    private ArrayList<StudentDetailsModel> studentDetailModels;
+    private final ArrayList<StudentDetailsModel> studentDetailModels;
 
     public StudentDetailsAdapter(ArrayList<StudentDetailsModel> studentDetailModels) {
         this.studentDetailModels = studentDetailModels;
@@ -87,21 +85,21 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
 //        notifyDataSetChanged();
     }
 
-    public StudentDetailsModel removeItem(int position) {
+    private StudentDetailsModel removeItem(int position) {
         final StudentDetailsModel model = studentDetailModels.remove(position);
         notifyItemRemoved(position);
 //        notifyDataSetChanged();
         return model;
     }
 
-    public void addItem(int position, StudentDetailsModel model) {
+    private void addItem(int position, StudentDetailsModel model) {
         studentDetailModels.add(position, model);
         notifyItemInserted(position);
 //        notifyDataSetChanged();
 
     }
 
-    public void moveItem(int fromPosition, int toPosition) {
+    private void moveItem(int fromPosition, int toPosition) {
         final StudentDetailsModel model = studentDetailModels.remove(fromPosition);
         studentDetailModels.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
@@ -110,7 +108,10 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, uid, email_id, classroom;
+        public final TextView name;
+        public final TextView uid;
+        public final TextView email_id;
+        public final TextView classroom;
 
         public MyViewHolder(View view) {
             super(view);

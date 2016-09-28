@@ -1,13 +1,11 @@
 package rohitnahata.mailingsystem.Models;
 
-/**
- * Created by Rohit on 05/09/2016.
- */
+
 public class StudentDetailsModel {
-    String classroom;
-    String id;
-    String name;
-    String email_id;
+    private String classroom;
+    private String id;
+    private String name;
+    private String email_id;
 
     public StudentDetailsModel() {
 

@@ -3,7 +3,6 @@ package rohitnahata.mailingsystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -31,7 +30,7 @@ import rohitnahata.mailingsystem.Utils.ItemClickSupport;
  */
 public class PreviousMailsFragment extends Fragment implements SearchView.OnQueryTextListener{
 
-    View view;
+    private View view;
     private ArrayList<PreviousMailModel> previousMailModelList;
     private ArrayList<PreviousMailModel> tempList;
     private RecyclerView recyclerView;
@@ -40,11 +39,6 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
 
     public PreviousMailsFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -66,7 +60,7 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         recyclerView.setAdapter(mAdapter);
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -84,12 +78,6 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
             }
         });
     }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
 
 
     @Override

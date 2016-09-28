@@ -13,15 +13,18 @@ import java.util.List;
 
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
-public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
+class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
 
-    Context context;
-    int resource, textViewResourceId;
-    List<StudentDetailsModel> items, tempItems, suggestions;
+    private final Context context;
+    private final int resource;
+    private final int textViewResourceId;
+    private final List<StudentDetailsModel> items;
+    private final List<StudentDetailsModel> tempItems;
+    private final List<StudentDetailsModel> suggestions;
     /**
      * Custom Filter implementation for custom suggestions we provide.
      */
-    Filter nameFilter = new Filter() {
+    private final Filter nameFilter = new Filter() {
         @Override
         public CharSequence convertResultToString(Object resultValue) {
             String temp = ((StudentDetailsModel) resultValue).getEmail_id();
@@ -65,11 +68,11 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> 
         }
     };
 
-    public StudentSuggestionAdapter(Context context, int resource, int textViewResourceId, List<StudentDetailsModel> items) {
-        super(context, resource, textViewResourceId, items);
+    public StudentSuggestionAdapter(Context context, int resource, List<StudentDetailsModel> items) {
+        super(context, R.layout.activity_main, R.id.lbl_name, items);
         this.context = context;
-        this.resource = resource;
-        this.textViewResourceId = textViewResourceId;
+        this.resource = R.layout.activity_main;
+        this.textViewResourceId = R.id.lbl_name;
         this.items = items;
         tempItems = new ArrayList<>(items); // this makes the difference.
         suggestions = new ArrayList<>();

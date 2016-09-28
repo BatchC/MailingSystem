@@ -17,10 +17,10 @@ import rohitnahata.mailingsystem.R;
 
 public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdapter.MyViewHolder> {
 
-    String letter;
-    int color;
-    ColorGenerator generator = ColorGenerator.MATERIAL;
-    private List<PreviousMailModel> previousMailModelList;
+    private final ColorGenerator generator = ColorGenerator.MATERIAL;
+    private final List<PreviousMailModel> previousMailModelList;
+    private String letter;
+    private int color;
 
 
     public PreviousMailsAdapter(List<PreviousMailModel> previousMailModelList) {
@@ -98,21 +98,21 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
 //        notifyDataSetChanged();
     }
 
-    public PreviousMailModel removeItem(int position) {
+    private PreviousMailModel removeItem(int position) {
         final PreviousMailModel model = previousMailModelList.remove(position);
         notifyItemRemoved(position);
 //        notifyDataSetChanged();
         return model;
     }
 
-    public void addItem(int position, PreviousMailModel model) {
+    private void addItem(int position, PreviousMailModel model) {
         previousMailModelList.add(position, model);
         notifyItemInserted(position);
 //        notifyDataSetChanged();
 
     }
 
-    public void moveItem(int fromPosition, int toPosition) {
+    private void moveItem(int fromPosition, int toPosition) {
         final PreviousMailModel model = previousMailModelList.remove(fromPosition);
         previousMailModelList.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
@@ -121,8 +121,12 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView time, subjectText, bodyText, recipientText;
-        public ImageView nameImage, attachmentPresent;
+        public final TextView time;
+        public final TextView subjectText;
+        public final TextView bodyText;
+        public final TextView recipientText;
+        public final ImageView nameImage;
+        public final ImageView attachmentPresent;
 
         public MyViewHolder(View view) {
             super(view);

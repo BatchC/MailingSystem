@@ -5,14 +5,11 @@ import android.view.View;
 
 import rohitnahata.mailingsystem.R;
 
-/**
- * Created by Rohit on 06/09/2016.
- */
+
 public class ItemClickSupport {
     private final RecyclerView mRecyclerView;
     private OnItemClickListener mOnItemClickListener;
-    private OnItemLongClickListener mOnItemLongClickListener;
-    private View.OnClickListener mOnClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (mOnItemClickListener != null) {
@@ -21,7 +18,8 @@ public class ItemClickSupport {
             }
         }
     };
-    private View.OnLongClickListener mOnLongClickListener = new View.OnLongClickListener() {
+    private OnItemLongClickListener mOnItemLongClickListener;
+    private final View.OnLongClickListener mOnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             if (mOnItemLongClickListener != null) {
@@ -31,7 +29,7 @@ public class ItemClickSupport {
             return false;
         }
     };
-    private RecyclerView.OnChildAttachStateChangeListener mAttachListener
+    private final RecyclerView.OnChildAttachStateChangeListener mAttachListener
             = new RecyclerView.OnChildAttachStateChangeListener() {
         @Override
         public void onChildViewAttachedToWindow(View view) {
@@ -71,9 +69,8 @@ public class ItemClickSupport {
         return support;
     }
 
-    public ItemClickSupport setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClickListener = listener;
-        return this;
     }
 
     public ItemClickSupport setOnItemLongClickListener(OnItemLongClickListener listener) {

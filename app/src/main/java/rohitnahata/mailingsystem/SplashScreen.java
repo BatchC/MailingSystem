@@ -76,12 +76,6 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Intent i = new Intent(SplashScreen.this, Login.class);

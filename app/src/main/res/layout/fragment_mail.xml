@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="50sp"
     android:paddingEnd="8sp"
     android:paddingStart="8sp"
@@ -187,15 +186,15 @@
                 android:id="@+id/buttonSend"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/send"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="sans-serif-medium"
-                android:theme="@style/MyButton"
                 android:minWidth="88dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
+                android:text="@string/send"
                 android:textColor="#f3e5f5"
                 android:textSize="10pt"
+                android:theme="@style/MyButton"
                 />
 
         </LinearLayout>

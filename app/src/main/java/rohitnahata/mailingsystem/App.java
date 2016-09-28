@@ -15,21 +15,16 @@ import java.util.ArrayList;
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
-/**
- * Created by Rohit on 04/09/2016.
- */
 
 public class App extends android.app.Application {
 
-    public static final String PREVIOUS_MAIL_MODEL_LIST = "previousMailList";
-    public static final String STUDENTS_LIST = "previousStudentsList";
-    public static final String CLASSROOM_LIST = "classroomList";
-
-
-    public static String BASE_URL = "https://mailing-system-cbbc1.firebaseio.com/";
-    SharedPreferences sharedPrefs;
-    Editor editor;
-    Gson gson;
+    public static final String BASE_URL = "https://mailing-system-cbbc1.firebaseio.com/";
+    private static final String PREVIOUS_MAIL_MODEL_LIST = "previousMailList";
+    private static final String STUDENTS_LIST = "previousStudentsList";
+    private static final String CLASSROOM_LIST = "classroomList";
+    private SharedPreferences sharedPrefs;
+    private Editor editor;
+    private Gson gson;
     private ArrayList<StudentDetailsModel> studentDetailsModelList;
     private ArrayList<StudentDetailsModel> className;
     private ArrayList<PreviousMailModel> previousMailModelList;

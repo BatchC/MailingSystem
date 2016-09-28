@@ -25,21 +25,18 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-/**
- * Created by Rohit on 03/09/2016.
- */
 //Class is extending AsyncTask because this class is going to perform a networking operation
-public class SendMail extends AsyncTask<Void,Void,Void> {
+class SendMail extends AsyncTask<Void, Void, Void> {
 
     //Declaring Variables
-    private Context context;
+    private final Context context;
 
     //Information to send email
-    private InternetAddress[] internetAddresses;
-    private ArrayList<String> strFilePath;
-    private ArrayList<String> getStrFilePathName;
-    private String subject;
-    private String message;
+    private final InternetAddress[] internetAddresses;
+    private final ArrayList<String> strFilePath;
+    private final ArrayList<String> getStrFilePathName;
+    private final String subject;
+    private final String message;
     //Progressdialog to show while sending email
     private ProgressDialog progressDialog;
 

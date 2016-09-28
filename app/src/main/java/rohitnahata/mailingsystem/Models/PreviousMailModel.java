@@ -2,15 +2,12 @@ package rohitnahata.mailingsystem.Models;
 
 import java.util.ArrayList;
 
-/**
- * Created by Rohit on 06/09/2016.
- */
 public class PreviousMailModel {
-    String strRecipients;
-    String strSubject;
-    String strBody;
-    String strTime_sent;
-    ArrayList<String> strAttachments;
+    private String strRecipients;
+    private String strSubject;
+    private String strBody;
+    private String strTime_sent;
+    private ArrayList<String> strAttachments;
 //    int intId;
 
     public PreviousMailModel() {

@@ -27,9 +27,9 @@ import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
  */
 public class DatabaseFragment extends Fragment implements SearchView.OnQueryTextListener {
 
-    StudentDetailsAdapter mAdapter;
-    RecyclerView recyclerView;
-    View view;
+    private StudentDetailsAdapter mAdapter;
+    private RecyclerView recyclerView;
+    private View view;
     private ArrayList<StudentDetailsModel> studentDetailsModelList;
     private ArrayList<StudentDetailsModel> temp;
 
@@ -63,13 +63,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         recyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     @Override

@@ -154,7 +154,6 @@ public class Login extends LoadingProgressBar implements
         int i = v.getId();
         if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
-//        } e
         }
     }
 }
