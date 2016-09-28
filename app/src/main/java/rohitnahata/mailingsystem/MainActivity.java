@@ -10,16 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 
 public class MainActivity extends AppCompatActivity {
-
-
-    EditText recipients, body, subject;
-//        RecyclerView rv;
-//        MyAdapter adapter;
-//        ArrayList<PreviousMailDBData> previousMailDBDatas=new ArrayList<>();
 
 
     @Override

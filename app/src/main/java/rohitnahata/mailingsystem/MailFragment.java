@@ -309,6 +309,7 @@ public class MailFragment extends Fragment {
         {
             tempEmail.add(email);
             allEmails=email;
+            allEmails += "\n";
         } else if (!isValidEmail(email) && email.indexOf(';') == -1) {
             flag = 0;
             for (StudentDetailsModel name : className) {
@@ -364,7 +365,7 @@ public class MailFragment extends Fragment {
                     for (StudentDetailsModel name : className) {
                         if (Objects.equals(aTemp, name.getClassroom())) {
                             flag = 1;
-                            allEmails += email + "\n";
+                            allEmails += aTemp + "\n";
                             for (StudentDetailsModel temp : studentDetailsModelList) {
                                 if (Objects.equals(temp.getClassroom(), aTemp)) {
                                     tempEmail.add(temp.getEmail_id());
@@ -383,7 +384,7 @@ public class MailFragment extends Fragment {
                 }
                 else {
                     j++;
-                    allEmails += ",\n" + aTemp;
+                    allEmails += aTemp + "\n";
                     tempEmail.add(aTemp);
                 }
 
