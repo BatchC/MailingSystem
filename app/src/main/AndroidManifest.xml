@@ -37,9 +37,10 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:parentActivityName="rohitnahata.mailingsystem.MainActivity"
 
             />
+        <!--android:parentActivityName="rohitnahata.mailingsystem.MainActivity"-->
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

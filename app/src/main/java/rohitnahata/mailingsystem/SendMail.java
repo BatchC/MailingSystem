@@ -58,7 +58,7 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
     protected void onPreExecute() {
         super.onPreExecute();
         //Showing progress dialog while sending email
-        progressDialog = ProgressDialog.show(context,"Sending message","Please wait...",false,false);
+        progressDialog = ProgressDialog.show(context, "Sending Mail", "Please wait...", false, false);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
         //Dismissing the progress dialog
         progressDialog.dismiss();
         //Showing a success message
-        Toast.makeText(context,"Message Sent",Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Mail Sent", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -83,13 +83,6 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
-
-
-//        props.put("mail.smtp.host", "smtp.live.com");
-//        props.put("mail.smtp.socketFactory.port", "465");
-//        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//        props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.port", "587");
 
         //Creating a new session
         Session session = Session.getDefaultInstance(props,
@@ -127,9 +120,6 @@ public class SendMail extends AsyncTask<Void,Void,Void> {
             // Set text message part
             multipart.addBodyPart(messageBodyPart);
 
-//             Part two is attachment
-//            String tp= String.valueOf(MailFragment.filepath);
-//            tp=tp.substring(7);
             for(int i=0;i<strFilePath.size();i++){
                 messageBodyPart = new MimeBodyPart();
                 DataSource source = new FileDataSource(strFilePath.get(i));

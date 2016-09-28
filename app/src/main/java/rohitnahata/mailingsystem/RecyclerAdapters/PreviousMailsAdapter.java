@@ -52,9 +52,6 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
         }
 
 
-//        holder.nameImage.setImageResource(previousMailModel.getGenre());
-//        holder.attachmentPresent.setImageResource(previousMailModel.getYear());
-
     }
 
     @Override
@@ -76,7 +73,6 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
-//            notifyDataSetChanged();
         }
     }
 
@@ -88,7 +84,6 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
                 addItem(i, model);
             }
         }
-//        notifyDataSetChanged();
     }
 
     private void applyAndAnimateMovedItems(List<PreviousMailModel> newModels) {
@@ -142,10 +137,4 @@ public class PreviousMailsAdapter extends RecyclerView.Adapter<PreviousMailsAdap
 
     }
 
-
-//    public void setFilter(List<PreviousMailModel> mpreviousMailModelList) {
-//        previousMailModelList = new ArrayList<>();
-//        previousMailModelList.addAll(mpreviousMailModelList);
-//        notifyDataSetChanged();
-//    }
 }

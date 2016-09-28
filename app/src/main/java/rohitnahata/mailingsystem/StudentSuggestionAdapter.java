@@ -11,32 +11,31 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
-public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
+public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
 
     Context context;
     int resource, textViewResourceId;
-    List<StudentDetails> items, tempItems, suggestions;
-    int flag = 0;
+    List<StudentDetailsModel> items, tempItems, suggestions;
     /**
      * Custom Filter implementation for custom suggestions we provide.
      */
     Filter nameFilter = new Filter() {
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            String temp = ((StudentDetails) resultValue).getEmail_id();
+            String temp = ((StudentDetailsModel) resultValue).getEmail_id();
             if (!temp.equals(""))
-                return ((StudentDetails) resultValue).getEmail_id();
+                return ((StudentDetailsModel) resultValue).getEmail_id();
             else
-                return ((StudentDetails) resultValue).getClassroom();
+                return ((StudentDetailsModel) resultValue).getClassroom();
         }
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             if (constraint != null) {
                 suggestions.clear();
-                for (StudentDetails people : tempItems) {
+                for (StudentDetailsModel people : tempItems) {
                     if (people.getClassroom().toLowerCase().contains(constraint.toString().toLowerCase()))
                         suggestions.add(people);
                     else if (people.getName().toLowerCase().contains(constraint.toString().toLowerCase()))
@@ -55,10 +54,10 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            List<StudentDetails> filterList = (ArrayList<StudentDetails>) results.values;
+            List<StudentDetailsModel> filterList = (ArrayList<StudentDetailsModel>) results.values;
             if (results.count > 0) {
                 clear();
-                for (StudentDetails people : filterList) {
+                for (StudentDetailsModel people : filterList) {
                     add(people);
                     notifyDataSetChanged();
                 }
@@ -66,7 +65,7 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
         }
     };
 
-    public StudentSuggestionAdapter(Context context, int resource, int textViewResourceId, List<StudentDetails> items) {
+    public StudentSuggestionAdapter(Context context, int resource, int textViewResourceId, List<StudentDetailsModel> items) {
         super(context, resource, textViewResourceId, items);
         this.context = context;
         this.resource = resource;
@@ -83,7 +82,7 @@ public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetails> {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.row_recipients_suggestions, parent, false);
         }
-        StudentDetails people = items.get(position);
+        StudentDetailsModel people = items.get(position);
         if (people != null) {
             TextView lblName = (TextView) view.findViewById(R.id.lbl_name);
             String tp = people.getClassroom() + "\n" + people.getName() + "\n" + people.getEmail_id();

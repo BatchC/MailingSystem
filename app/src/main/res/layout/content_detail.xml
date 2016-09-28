@@ -48,8 +48,8 @@
 
                 <ImageView
                     android:id="@+id/nameImageDetail"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="5sp"
                     android:contentDescription="@string/gmailtype" />
 
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:paddingEnd="5sp"
                         android:text="@string/recipient"
-                        android:textSize="18sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         />
 
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/time"
-                        android:textSize="18sp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>

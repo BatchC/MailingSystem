@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
-import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
 /**
  * Created by Rohit on 04/09/2016.
@@ -30,8 +30,8 @@ public class App extends android.app.Application {
     SharedPreferences sharedPrefs;
     Editor editor;
     Gson gson;
-    private ArrayList<StudentDetails> studentDetailsList;
-    private ArrayList<StudentDetails> className;
+    private ArrayList<StudentDetailsModel> studentDetailsModelList;
+    private ArrayList<StudentDetailsModel> className;
     private ArrayList<PreviousMailModel> previousMailModelList;
 
     public ArrayList<PreviousMailModel> getPreviousMailModelList() {
@@ -54,28 +54,28 @@ public class App extends android.app.Application {
         this.previousMailModelList = previousMailModelList;
     }
 
-    public ArrayList<StudentDetails> getStudentDetailsList() {
+    public ArrayList<StudentDetailsModel> getStudentDetailsModelList() {
         String json = sharedPrefs.getString(STUDENTS_LIST, null);
-        Type type = new TypeToken<ArrayList<StudentDetails>>() {
+        Type type = new TypeToken<ArrayList<StudentDetailsModel>>() {
         }.getType();
-        studentDetailsList = gson.fromJson(json, type);
-        if (studentDetailsList != null)
-            return studentDetailsList;
+        studentDetailsModelList = gson.fromJson(json, type);
+        if (studentDetailsModelList != null)
+            return studentDetailsModelList;
         else
             return new ArrayList<>();
     }
 
-    public void setStudentDetailsList(ArrayList<StudentDetails> studentDetailsList) {
+    public void setStudentDetailsModelList(ArrayList<StudentDetailsModel> studentDetailsModelList) {
         editor = sharedPrefs.edit();
-        String json = gson.toJson(studentDetailsList);
+        String json = gson.toJson(studentDetailsModelList);
         editor.putString(STUDENTS_LIST, json);
         editor.apply();
-        this.studentDetailsList = studentDetailsList;
+        this.studentDetailsModelList = studentDetailsModelList;
     }
 
-    public ArrayList<StudentDetails> getClassName() {
+    public ArrayList<StudentDetailsModel> getClassName() {
         String json = sharedPrefs.getString(CLASSROOM_LIST, null);
-        Type type = new TypeToken<ArrayList<StudentDetails>>() {
+        Type type = new TypeToken<ArrayList<StudentDetailsModel>>() {
         }.getType();
         className = gson.fromJson(json, type);
         if (className != null)
@@ -84,7 +84,7 @@ public class App extends android.app.Application {
             return new ArrayList<>();
     }
 
-    public void setClassName(ArrayList<StudentDetails> className) {
+    public void setClassName(ArrayList<StudentDetailsModel> className) {
         editor = sharedPrefs.edit();
         String json = gson.toJson(className);
         editor.putString(CLASSROOM_LIST, json);

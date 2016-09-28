@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 import rohitnahata.mailingsystem.RecyclerAdapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 
@@ -30,8 +30,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     StudentDetailsAdapter mAdapter;
     RecyclerView recyclerView;
     View view;
-    private ArrayList<StudentDetails> studentDetailsList;
-    private ArrayList<StudentDetails> temp;
+    private ArrayList<StudentDetailsModel> studentDetailsModelList;
+    private ArrayList<StudentDetailsModel> temp;
 
     public DatabaseFragment() {
         // Required empty public constructor
@@ -41,8 +41,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        temp = ((App) getContext().getApplicationContext()).getStudentDetailsList();
-        studentDetailsList = new ArrayList<>(temp);
+        temp = ((App) getContext().getApplicationContext()).getStudentDetailsModelList();
+        studentDetailsModelList = new ArrayList<>(temp);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     public void onStart() {
         super.onStart();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewDatabase);
-        mAdapter = new StudentDetailsAdapter(studentDetailsList);
+        mAdapter = new StudentDetailsAdapter(studentDetailsModelList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -86,7 +86,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                 new MenuItemCompat.OnActionExpandListener() {
                     @Override
                     public boolean onMenuItemActionCollapse(MenuItem item) {
-                        mAdapter.animateTo(studentDetailsList);
+                        mAdapter.animateTo(studentDetailsModelList);
                         recyclerView.scrollToPosition(0);
                         return true; // Return true to collapse action view
                     }
@@ -101,8 +101,8 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        studentDetailsList.clear();
-        studentDetailsList.addAll(temp);
+        studentDetailsModelList.clear();
+        studentDetailsModelList.addAll(temp);
         mAdapter.notifyDataSetChanged();
         recyclerView.scrollToPosition(0);
         return false;
@@ -110,20 +110,20 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        studentDetailsList.clear();
-        studentDetailsList.addAll(temp);
+        studentDetailsModelList.clear();
+        studentDetailsModelList.addAll(temp);
         mAdapter.notifyDataSetChanged();
-        final ArrayList<StudentDetails> filteredModelList = filter(temp, newText);
+        final ArrayList<StudentDetailsModel> filteredModelList = filter(temp, newText);
         mAdapter.animateTo(filteredModelList);
         recyclerView.scrollToPosition(0);
         return true;
     }
 
-    private ArrayList<StudentDetails> filter(ArrayList<StudentDetails> models, String query) {
+    private ArrayList<StudentDetailsModel> filter(ArrayList<StudentDetailsModel> models, String query) {
         query = query.toLowerCase();
 
-        final ArrayList<StudentDetails> filteredModelList = new ArrayList<>();
-        for (StudentDetails model : models) {
+        final ArrayList<StudentDetailsModel> filteredModelList = new ArrayList<>();
+        for (StudentDetailsModel model : models) {
             final String text = model.getName().toLowerCase();
             final String id = model.getId().toLowerCase();
             final String classroom = model.getClassroom().toLowerCase();

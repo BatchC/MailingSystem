@@ -3,17 +3,17 @@ package rohitnahata.mailingsystem.Models;
 /**
  * Created by Rohit on 05/09/2016.
  */
-public class StudentDetails {
+public class StudentDetailsModel {
     String classroom;
     String id;
     String name;
     String email_id;
 
-    public StudentDetails(){
+    public StudentDetailsModel() {
 
     }
 
-    public StudentDetails(String id, String name, String email_id, String classroom) {
+    public StudentDetailsModel(String id, String name, String email_id, String classroom) {
         this.id = id;
         this.name = name;
         this.email_id = email_id;
@@ -22,7 +22,7 @@ public class StudentDetails {
 
     @Override
     public String toString() {
-        return "StudentDetails{" +
+        return "StudentDetailsModel{" +
                 "classroom='" + classroom + '\'' +
                 ", id='" + id + '\'' +
                 ", name='" + name + '\'' +

@@ -12,14 +12,14 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 
-import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private ArrayList<StudentDetails> studentDetailsList;
-    private ArrayList<StudentDetails> temp;
+    private ArrayList<StudentDetailsModel> studentDetailsModelList;
+    private ArrayList<StudentDetailsModel> temp;
 
-    private ArrayList<StudentDetails> className;
+    private ArrayList<StudentDetailsModel> className;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         className = ((App) this.getApplication()).getClassName();
-        studentDetailsList = ((App) this.getApplication()).getStudentDetailsList();
+        studentDetailsModelList = ((App) this.getApplication()).getStudentDetailsModelList();
         new PrefetchData().execute(App.BASE_URL);
     }
 
@@ -43,7 +43,7 @@ public class SplashScreen extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     deleteData();
-                    temp = new ArrayList<>(studentDetailsList);
+                    temp = new ArrayList<>(studentDetailsModelList);
                     for (DataSnapshot alert : dataSnapshot.getChildren()) {
                         String strClass = alert.getKey();
                         className_add(alert.getKey());
@@ -55,20 +55,20 @@ public class SplashScreen extends AppCompatActivity {
                             addData(strUID, strName, strEmail, strClass);
                         }
                     }
-                    ((App) getApplication()).setStudentDetailsList(studentDetailsList);
+                    ((App) getApplication()).setStudentDetailsModelList(studentDetailsModelList);
                     ((App) getApplication()).setClassName(className);
 
                 }
 
                 private void className_add(String key) {
-                    StudentDetails classDetails = new StudentDetails("", "All Students", "", key);
+                    StudentDetailsModel classDetails = new StudentDetailsModel("", "All Students", "", key);
                     className.add(classDetails);
                 }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
                     System.out.println("Error");
-                    studentDetailsList = new ArrayList<>(temp);
+                    studentDetailsModelList = new ArrayList<>(temp);
                 }
             });
 
@@ -91,8 +91,8 @@ public class SplashScreen extends AppCompatActivity {
 
 
         public void deleteData() {
-            if (studentDetailsList != null) {
-                studentDetailsList.clear();
+            if (studentDetailsModelList != null) {
+                studentDetailsModelList.clear();
             }
             if (className != null) {
                 className.clear();
@@ -100,8 +100,8 @@ public class SplashScreen extends AppCompatActivity {
         }
 
         public void addData(String n1, String n2, String n3, String n4) {
-            StudentDetails studentDetails = new StudentDetails(n1, n2, n3, n4);
-            studentDetailsList.add(studentDetails);
+            StudentDetailsModel studentDetailsModel = new StudentDetailsModel(n1, n2, n3, n4);
+            studentDetailsModelList.add(studentDetailsModel);
         }
 
 

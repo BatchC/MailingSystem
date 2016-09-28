@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import rohitnahata.mailingsystem.Models.StudentDetails;
+import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 import rohitnahata.mailingsystem.R;
 
 /**
@@ -17,10 +17,10 @@ import rohitnahata.mailingsystem.R;
  */
 public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAdapter.MyViewHolder> {
 
-    private ArrayList<StudentDetails> studentDetails;
+    private ArrayList<StudentDetailsModel> studentDetailModels;
 
-    public StudentDetailsAdapter(ArrayList<StudentDetails> studentDetails) {
-        this.studentDetails = studentDetails;
+    public StudentDetailsAdapter(ArrayList<StudentDetailsModel> studentDetailModels) {
+        this.studentDetailModels = studentDetailModels;
     }
 
     @Override
@@ -33,30 +33,30 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        StudentDetails studentDetails1 = studentDetails.get(position);
-        holder.name.setText(studentDetails1.getName());
-        holder.email_id.setText(studentDetails1.getEmail_id());
-        holder.uid.setText(studentDetails1.getId());
-        holder.classroom.setText(studentDetails1.getClassroom());
+        StudentDetailsModel studentDetailsModel1 = studentDetailModels.get(position);
+        holder.name.setText(studentDetailsModel1.getName());
+        holder.email_id.setText(studentDetailsModel1.getEmail_id());
+        holder.uid.setText(studentDetailsModel1.getId());
+        holder.classroom.setText(studentDetailsModel1.getClassroom());
 
     }
 
     @Override
     public int getItemCount() {
-        return studentDetails.size();
+        return studentDetailModels.size();
     }
 
-    public void animateTo(List<StudentDetails> models) {
+    public void animateTo(List<StudentDetailsModel> models) {
         applyAndAnimateRemovals(models);
         applyAndAnimateAdditions(models);
         applyAndAnimateMovedItems(models);
 
     }
 
-    private void applyAndAnimateRemovals(List<StudentDetails> newModels) {
+    private void applyAndAnimateRemovals(List<StudentDetailsModel> newModels) {
 
-        for (int i = studentDetails.size() - 1; i >= 0; i--) {
-            final StudentDetails model = studentDetails.get(i);
+        for (int i = studentDetailModels.size() - 1; i >= 0; i--) {
+            final StudentDetailsModel model = studentDetailModels.get(i);
             if (!newModels.contains(model)) {
                 removeItem(i);
             }
@@ -64,22 +64,22 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
         }
     }
 
-    private void applyAndAnimateAdditions(List<StudentDetails> newModels) {
+    private void applyAndAnimateAdditions(List<StudentDetailsModel> newModels) {
 
         for (int i = 0, count = newModels.size(); i < count; i++) {
-            final StudentDetails model = newModels.get(i);
-            if (!studentDetails.contains(model)) {
+            final StudentDetailsModel model = newModels.get(i);
+            if (!studentDetailModels.contains(model)) {
                 addItem(i, model);
             }
         }
 //        notifyDataSetChanged();
     }
 
-    private void applyAndAnimateMovedItems(List<StudentDetails> newModels) {
+    private void applyAndAnimateMovedItems(List<StudentDetailsModel> newModels) {
 
         for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
-            final StudentDetails model = newModels.get(toPosition);
-            final int fromPosition = studentDetails.indexOf(model);
+            final StudentDetailsModel model = newModels.get(toPosition);
+            final int fromPosition = studentDetailModels.indexOf(model);
             if (fromPosition >= 0 && fromPosition != toPosition) {
                 moveItem(fromPosition, toPosition);
             }
@@ -87,23 +87,23 @@ public class StudentDetailsAdapter extends RecyclerView.Adapter<StudentDetailsAd
 //        notifyDataSetChanged();
     }
 
-    public StudentDetails removeItem(int position) {
-        final StudentDetails model = studentDetails.remove(position);
+    public StudentDetailsModel removeItem(int position) {
+        final StudentDetailsModel model = studentDetailModels.remove(position);
         notifyItemRemoved(position);
 //        notifyDataSetChanged();
         return model;
     }
 
-    public void addItem(int position, StudentDetails model) {
-        studentDetails.add(position, model);
+    public void addItem(int position, StudentDetailsModel model) {
+        studentDetailModels.add(position, model);
         notifyItemInserted(position);
 //        notifyDataSetChanged();
 
     }
 
     public void moveItem(int fromPosition, int toPosition) {
-        final StudentDetails model = studentDetails.remove(fromPosition);
-        studentDetails.add(toPosition, model);
+        final StudentDetailsModel model = studentDetailModels.remove(fromPosition);
+        studentDetailModels.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
 //        notifyDataSetChanged();
 
