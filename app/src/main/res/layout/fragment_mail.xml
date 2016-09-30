@@ -19,38 +19,12 @@
             android:orientation="vertical"
             android:paddingBottom="10sp">
 
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/recipient_email" />-->
-
-            <!--<AutoCompleteTextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:completionThreshold="1"-->
-
-            <!--/>-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
-                <!--<EditText-->
-                <!--android:id="@+id/editTextEmail"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight=".95"-->
-                <!--android:background="@null"-->
-                <!--android:fontFamily="sans-serif"-->
-                <!--android:gravity="center_vertical|start"-->
-                <!--android:hint="@string/to"-->
-                <!--android:inputType="textEmailAddress"-->
-                <!--android:minHeight="?listPreferredItemHeight"-->
-                <!--android:paddingTop="20sp"-->
-                <!--/>-->
 
                 <AutoCompleteTextView
                     android:id="@+id/editTextEmail"
@@ -78,16 +52,6 @@
             </LinearLayout>
 
 
-            <!--<com.tokenautocomplete.ContactsCompletionView-->
-            <!--android:id="@+id/searchView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:imeOptions="actionDone"-->
-            <!--android:textColor="@android:color/darker_gray"-->
-            <!--android:textSize="19sp"-->
-            <!--android:nextFocusDown="@+id/editText"-->
-            <!--android:inputType="text|textNoSuggestions|textMultiLine"-->
-            <!--android:focusableInTouchMode="true" />-->
 
 
             <LinearLayout
@@ -99,11 +63,6 @@
 
             </LinearLayout>
 
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/subject" />-->
 
             <EditText
                 android:id="@+id/editTextSubject"

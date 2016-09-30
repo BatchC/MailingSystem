@@ -18,10 +18,10 @@
             android:contentDescription="@string/desc_firebase_lockup"
             android:src="@drawable/mailing_system_logo" />
 
-        <TextView
-            android:id="@+id/status"
-            style="@style/ThemeOverlay.MyTextDetail"
-            android:text="@string/signed_out" />
+        <!--<TextView-->
+            <!--android:id="@+id/status"-->
+            <!--style="@style/ThemeOverlay.MyTextDetail"-->
+            <!--android:text="@string/signed_out" />-->
 
         <!--<TextView-->
         <!--android:id="@+id/detail"-->

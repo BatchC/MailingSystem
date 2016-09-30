@@ -18,15 +18,6 @@ import java.util.ArrayList;
 public class DetailActivity extends AppCompatActivity {
 
     private final ColorGenerator generator = ColorGenerator.MATERIAL;
-    private TextView recipients;
-    private TextView body;
-    private TextView subject;
-    private TextView time_sent;
-    private TextView textViewAttachment;
-    private ImageView imageView;
-    private String letter;
-    private int color;
-    private LinearLayout linearLayout;
 
 
     @Override
@@ -47,18 +38,17 @@ public class DetailActivity extends AppCompatActivity {
         ArrayList<String> attachmentsStr=intent.getStringArrayListExtra("ATTACHMENTS");
 
 
+        TextView recipients = (TextView) findViewById(R.id.recipientDetails);
+        TextView body = (TextView) findViewById(R.id.bodyDetails);
+        TextView subject = (TextView) findViewById(R.id.detailSubject);
+        TextView time_sent = (TextView) findViewById(R.id.timeDetails);
+        ImageView imageView = (ImageView) findViewById(R.id.nameImageDetail);
+        TextView textViewAttachment = (TextView) findViewById(R.id.textViewAttachment);
 
-        recipients=(TextView)findViewById(R.id.recipientDetails);
-        body=(TextView)findViewById(R.id.bodyDetails);
-        subject=(TextView)findViewById(R.id.detailSubject);
-        time_sent=(TextView)findViewById(R.id.timeDetails);
-        imageView=(ImageView)findViewById(R.id.nameImageDetail);
-        textViewAttachment=(TextView)findViewById(R.id.textViewAttachment);
-
-        letter = (String.valueOf(recipientsStr.charAt(0))).toUpperCase();
-        color=generator.getColor(letter);
+        String letter = (String.valueOf(recipientsStr.charAt(0))).toUpperCase();
+        int color = generator.getColor(letter);
         TextDrawable drawable = TextDrawable.builder()
-                .buildRound(letter,color /*generator.getRandomColor()*/);
+                .buildRound(letter, color /*generator.getRandomColor()*/);
         imageView.setImageDrawable(drawable);
         recipients.setText(recipientsStr);
         body.setText(bodyStr);
@@ -66,7 +56,7 @@ public class DetailActivity extends AppCompatActivity {
         time_sent.setText(time_sentStr);
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         if (attachmentsStr != null) {
             findViewById(R.id.textViewAttachment).setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.VISIBLE);

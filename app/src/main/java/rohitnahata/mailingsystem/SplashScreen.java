@@ -18,8 +18,15 @@ public class SplashScreen extends AppCompatActivity {
 
     private ArrayList<StudentDetailsModel> studentDetailsModelList;
     private ArrayList<StudentDetailsModel> temp;
-
     private ArrayList<StudentDetailsModel> className;
+
+//    private FirebaseAuth mAuth;
+//    // [END declare_auth]
+//
+//    // [START declare_auth_listener]
+//    private FirebaseAuth.AuthStateListener mAuthListener;
+//    int flag=0;//to check whether we need to call the Login Activity or directly the Mail Activity
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,15 @@ public class SplashScreen extends AppCompatActivity {
         super.onStart();
         className = ((App) this.getApplication()).getClassName();
         studentDetailsModelList = ((App) this.getApplication()).getStudentDetailsModelList();
+//        mAuth = FirebaseAuth.getInstance();
+//        mAuthListener = new FirebaseAuth.AuthStateListener() {
+//            @Override
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                FirebaseUser user = firebaseAuth.getCurrentUser();
+//                if(user!=null)
+//                    flag=1;
+//            }
+//        };
         new PrefetchData().execute(App.BASE_URL);
     }
 
@@ -78,9 +94,14 @@ public class SplashScreen extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Intent i = new Intent(SplashScreen.this, Login.class);
-            startActivity(i);
 
+            Intent i;
+//            if(flag==0)
+            i = new Intent(SplashScreen.this, Login.class);
+//            else
+//                i=new Intent(SplashScreen.this,MainActivity.class);
+            startActivity(i);
+            SplashScreen.this.finish();
         }
 
 

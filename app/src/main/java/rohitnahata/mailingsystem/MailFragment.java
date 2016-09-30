@@ -50,29 +50,29 @@ import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 public class MailFragment extends Fragment {
 
 
-    private AutoCompleteTextView txtSearch;
-    private StudentSuggestionAdapter adapter;
-    private ArrayList<StudentDetailsModel> className;
-    private ArrayList<StudentDetailsModel> studentDetailsModelList;
-    private View view;
-    private EditText editTextSubject;
-    private EditText editTextMessage;
-    private String timeSent;
-    private ArrayList<Uri> filepath = null;
-    private String message;
-    private String subject;
-    private ArrayList<String> strFilePath;
-    private ArrayList<String> strFilePathString;
-    private String[] temp;
-    private ArrayList<String> tempEmail;
-    private String allEmails;
-    private InternetAddress[] recipientAddress;
-    private int emailFieldsUsed;
-    private LinearLayout extraEmailsLayout;
-    private LinearLayout extraAttachmentsLayoutRoot;
-    private LinearLayout extraAttachmentsLayout;
-    private Button addEmail;
-    private ArrayList<PreviousMailModel> previousMailModelList;
+    public AutoCompleteTextView txtSearch;
+    public StudentSuggestionAdapter adapter;
+    public ArrayList<StudentDetailsModel> className;
+    public ArrayList<StudentDetailsModel> studentDetailsModelList;
+    public View view;
+    public EditText editTextSubject;
+    public EditText editTextMessage;
+    public String timeSent;
+    public ArrayList<Uri> filepath = null;
+    public String message;
+    public String subject;
+    public ArrayList<String> strFilePath;
+    public ArrayList<String> strFilePathString;
+    public String[] temp;
+    public ArrayList<String> tempEmail;
+    public String allEmails;
+    public InternetAddress[] recipientAddress;
+    public int emailFieldsUsed;
+    public LinearLayout extraEmailsLayout;
+    public LinearLayout extraAttachmentsLayoutRoot;
+    public LinearLayout extraAttachmentsLayout;
+    public Button addEmail;
+    public ArrayList<PreviousMailModel> previousMailModelList;
 
 
     public MailFragment() {
@@ -82,24 +82,50 @@ public class MailFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_toolbar_mail, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.attachment:
+        final MenuItem item = menu.findItem(R.id.attachment);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
                 add_attachment();
                 return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            }
+        });
+    }
 
-        }
+
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        System.out.println(item.getItemId());
+//
+//        switch(item.getItemId()){
+//            case R.id.attachment:
+//                System.out.println("f3ff44444gf43");
+//                add_attachment();
+//                return true;
+//            case R.id.tp:
+//                System.out.println("aaaaaaaa");
+//            default:
+//                System.out.println("f3ff4gf43");
+//        }
+//        return super.onOptionsItemSelected(item);
+//
+//    }
+
+    public void add_attachment() {
+        Log.i("blabla","Attach");
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, true);
+        i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
+        i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
+        i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
+        startActivityForResult(i,1);
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         previousMailModelList = ((App) getContext().getApplicationContext()).getPreviousMailModelList();
         className = ((App) getContext().getApplicationContext()).getClassName();
         studentDetailsModelList = ((App) getContext().getApplicationContext()).getStudentDetailsModelList();
@@ -116,18 +142,9 @@ public class MailFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_mail, container, false);
-        setHasOptionsMenu(true);
         return view;
     }
 
-    private void add_attachment() {
-        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
-        i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, true);
-        i.putExtra(FilePickerActivity.EXTRA_ALLOW_CREATE_DIR, true);
-        i.putExtra(FilePickerActivity.EXTRA_MODE, FilePickerActivity.MODE_FILE);
-        i.putExtra(FilePickerActivity.EXTRA_START_PATH, Environment.getExternalStorageDirectory().getPath());
-        startActivityForResult(i, 1);
-    }
 
     @Override
     public void onStart() {
@@ -148,8 +165,6 @@ public class MailFragment extends Fragment {
         txtSearch = (AutoCompleteTextView) view.findViewById(R.id.editTextEmail);
         adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, studentDetailsModelListForSuggestions);
         txtSearch.setAdapter(adapter);
-
-
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,15 +203,23 @@ public class MailFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        System.out.println("Paused");
+//        System.out.println("Paused");
+
+
+
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        extraEmailsLayout.setVisibility(View.VISIBLE);
+    }
 
-    private boolean isValidEmail(CharSequence target) {
+    public boolean isValidEmail(CharSequence target) {
         return /*!TextUtils.isEmpty(target) &&  */android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
-    private void sendEmail() {
+    public void sendEmail() {
         Log.i("mail", "mailMe");
         //Getting content for email
         SendMail sm;
@@ -231,7 +254,7 @@ public class MailFragment extends Fragment {
         }
     }
 
-    private boolean haveNetworkConnection() {
+    public boolean haveNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
 
@@ -249,8 +272,11 @@ public class MailFragment extends Fragment {
         return haveConnectedWifi || haveConnectedMobile;
     }
 
+
+
+
     //Send Mail button
-    private void sendMailButton() {
+    public void sendMailButton() {
 
         String email = txtSearch.getText().toString().trim();
         subject = editTextSubject.getText().toString().trim();
@@ -327,35 +353,35 @@ public class MailFragment extends Fragment {
                 }
 
             }
+
             if (flag == 0) {
-                Toast.makeText(getContext(), "Email Address is not valid", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Email Address 1 is not valid", Toast.LENGTH_LONG).show();
                 return;
             }
         }
 
         if(emailFieldsUsed>0){
             String aTemp;
-            int j = 0;//used for actual temp array. a field might be left blank
             for(int i=1;i<=emailFieldsUsed;i++){
                 aTemp=storeAddressInArray(i);
-                if(i==emailFieldsUsed){
-                    if(!isValidEmail(aTemp)){
-                        for (StudentDetailsModel name : className) {
-                            if (Objects.equals(aTemp, name.getClassroom())) {
-                                allEmails += aTemp + "\n";
-                                for (StudentDetailsModel temp : studentDetailsModelList) {
-                                    if (Objects.equals(temp.getClassroom(), aTemp)) {
-                                        tempEmail.add(temp.getEmail_id());
-                                    }
-                                }
-                                break;
-                            }
-
-                        }
-                        //recipientAddress=new InternetAddress[emailFieldsUsed];
-                        break;
-                    }
-                }
+//                if(i==emailFieldsUsed){
+//                    if(!isValidEmail(aTemp)){
+//                        for (StudentDetailsModel name : className) {
+//                            if (Objects.equals(aTemp, name.getClassroom())) {
+//                                allEmails += aTemp + "\n";
+//                                for (StudentDetailsModel temp : studentDetailsModelList) {
+//                                    if (Objects.equals(temp.getClassroom(), aTemp)) {
+//                                        tempEmail.add(temp.getEmail_id());
+//                                    }
+//                                }
+//                                break;
+//                            }
+//
+//                        }
+//                        //recipientAddress=new InternetAddress[emailFieldsUsed];
+//                        break;
+//                    }
+//                }
                 if (!isValidEmail(aTemp) && aTemp.indexOf(';') == -1) {
                     flag = 0;
                     for (StudentDetailsModel name : className) {
@@ -371,6 +397,8 @@ public class MailFragment extends Fragment {
                         }
 
                     }
+                    if(Objects.equals(aTemp, ""))
+                        flag=1;
                     if (flag == 0) {
                         Toast.makeText(getContext(), "Email Address " + i + " is not valid", Toast.LENGTH_LONG).show();
                         recipientsPresent = 0;
@@ -378,7 +406,6 @@ public class MailFragment extends Fragment {
                     }
                 }
                 else {
-                    j++;
                     allEmails += aTemp + "\n";
                     tempEmail.add(aTemp);
                 }
@@ -423,7 +450,7 @@ public class MailFragment extends Fragment {
         }
     }
 
-    private void save_to_database() {
+    public void save_to_database() {
         String recipient, subject, body;
         subject = String.valueOf(editTextSubject.getText());
         body = String.valueOf(editTextMessage.getText());
@@ -472,7 +499,7 @@ public class MailFragment extends Fragment {
     }
 
 
-    private void clearFields(int emailField){
+    public void clearFields(int emailField){
         switch (emailField) {
 
             case 1:
@@ -539,7 +566,7 @@ public class MailFragment extends Fragment {
 
     }
 
-    private String storeAddressInArray(int emailField) {
+    public String storeAddressInArray(int emailField) {
         String emailAddress;
         switch (emailField) {
             case 1:
@@ -609,7 +636,7 @@ public class MailFragment extends Fragment {
     }
 
 
-    private void setEmailId(AutoCompleteTextView tv, int emailFieldsUsed) {
+    public void setEmailId(AutoCompleteTextView tv, int emailFieldsUsed) {
         switch (emailFieldsUsed) {
             case 1:
                 tv.setId(R.id.emailTextView1);

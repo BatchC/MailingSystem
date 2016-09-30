@@ -43,12 +43,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.settings)
-            return super.onOptionsItemSelected(item);
         if (id == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
             Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);
+            finish();
         }
         return true;
     }
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent homeIntent = new Intent(Intent.ACTION_MAIN);
                         homeIntent.addCategory(Intent.CATEGORY_HOME);
-//                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(homeIntent);
                         System.exit(0);
                     }

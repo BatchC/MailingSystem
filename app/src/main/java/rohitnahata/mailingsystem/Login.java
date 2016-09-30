@@ -1,13 +1,14 @@
 package rohitnahata.mailingsystem;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +24,7 @@ public class Login extends LoadingProgressBar implements
 
     private static final String TAG = "EmailPassword";
 
-    private TextView mStatusTextView;
+//    private TextView mStatusTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
 
@@ -39,7 +40,7 @@ public class Login extends LoadingProgressBar implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mStatusTextView = (TextView) findViewById(R.id.status);
+//        mStatusTextView = (TextView) findViewById(R.id.status);
         mEmailField = (EditText) findViewById(R.id.field_email);
         mPasswordField = (EditText) findViewById(R.id.field_password);
 
@@ -100,7 +101,7 @@ public class Login extends LoadingProgressBar implements
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(Login.this, R.string.auth_failed,
                                     Toast.LENGTH_SHORT).show();
-                            mStatusTextView.setText(R.string.auth_failed);
+//                            mStatusTextView.setText(R.string.auth_failed);
 
                         }
                         hideProgressDialog();
@@ -109,10 +110,10 @@ public class Login extends LoadingProgressBar implements
         // [END sign_in_with_email]
     }
 
-    private void signOut() {
-        mAuth.signOut();
-        updateUI(null);
-    }
+//    private void signOut() {
+//        mAuth.signOut();
+//        updateUI(null);
+//    }
 
     private boolean validateForm() {
         boolean valid = true;
@@ -139,12 +140,9 @@ public class Login extends LoadingProgressBar implements
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
+//            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
             startActivity(new Intent(Login.this, MainActivity.class));
 
-
-        } else {
-            mStatusTextView.setText(R.string.signed_out);
 
         }
     }
@@ -155,5 +153,24 @@ public class Login extends LoadingProgressBar implements
         if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                        homeIntent.addCategory(Intent.CATEGORY_HOME);
+                        homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(homeIntent);
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+
     }
 }
