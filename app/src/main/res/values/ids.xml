@@ -21,5 +21,7 @@
     <item type="id" name="emailTextView18" />
     <item type="id" name="emailTextView19" />
     <item type="id" name="emailTextView20" />
+    <item name="splashScreenImage" type="id">splashScreenImage1</item>
+    <item name="splashScreenText" type="id">splashscreentext</item>
 
 </resources>
