@@ -3,13 +3,7 @@ package rohitnahata.mailingsystem;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -22,12 +16,9 @@ import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
 public class SplashScreen extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 3000;
     private ArrayList<StudentDetailsModel> studentDetailsModelList;
     private ArrayList<StudentDetailsModel> temp;
     private ArrayList<StudentDetailsModel> className;
-
-
 
 //    private FirebaseAuth mAuth;
 //    // [END declare_auth]
@@ -41,23 +32,6 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-
-        StartAnimations();
-    }
-
-
-    private void StartAnimations(){
-        Animation anim1 = AnimationUtils.loadAnimation(this, R.anim.fade_in_splashscreen);
-        anim1.reset();
-        ImageView img1 =(ImageView) findViewById(R.id.splashScreenImage);
-        img1.clearAnimation();
-        img1.startAnimation(anim1);
-
-        Animation anim2 = AnimationUtils.loadAnimation(this, R.anim.animation);
-        anim2.reset();
-        ImageView txt =(ImageView) findViewById(R.id.splashScreenText);
-        txt.clearAnimation();
-        txt.startAnimation(anim2);
     }
 
     @Override
@@ -121,22 +95,13 @@ public class SplashScreen extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
-//            Intent i;
+            Intent i;
 //            if(flag==0)
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-
-
-                Intent i = new Intent(SplashScreen.this, Login.class);
-
-                //            else
+            i = new Intent(SplashScreen.this, Login.class);
+//            else
 //                i=new Intent(SplashScreen.this,MainActivity.class);
-                startActivity(i);
-
-                SplashScreen.this.finish();
-            }
-        }, SPLASH_TIME_OUT);
-
+            startActivity(i);
+            SplashScreen.this.finish();
         }
 
 

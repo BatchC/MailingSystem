@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="#673ab7"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -11,40 +11,30 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="rohitnahata.mailingsystem.SplashScreen"
-    android:id="@+id/rel_splashscreen"
     >
 
-    <!--<TextView-->
-        <!--android:id="@+id/splashScreenTitle"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="40dp"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:shadowColor="#0000ff"-->
-        <!--android:text="@string/mailing_system"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:textColor="#448aff"-->
-        <!--android:textSize="35sp"-->
-        <!--android:textStyle="bold"-->
+    <TextView
+        android:id="@+id/splashScreenTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:shadowColor="#0000ff"
+        android:text="@string/mailing_system"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#448aff"
+        android:textSize="35sp"
+        android:textStyle="bold"
 
-        <!--/>-->
+        />
+
     <ImageView
-        android:id="@id/splashScreenText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:maxHeight="30dp"
-        android:maxWidth="30dp"
-        android:src="@drawable/mailingsystem_text" />
-
-    <ImageView
-        android:id="@id/splashScreenImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/splashScreenText"
+        android:layout_below="@+id/splashScreenTitle"
         android:contentDescription="@string/splashscreen"
         android:maxHeight="30dp"
         android:maxWidth="30dp"
