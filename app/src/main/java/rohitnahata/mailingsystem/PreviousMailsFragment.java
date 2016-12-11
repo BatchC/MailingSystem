@@ -21,7 +21,6 @@ import java.util.List;
 
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.RecyclerAdapters.PreviousMailsAdapter;
-import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 import rohitnahata.mailingsystem.Utils.ItemClickSupport;
 
 
@@ -60,7 +59,6 @@ public class PreviousMailsFragment extends Fragment implements SearchView.OnQuer
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         recyclerView.setAdapter(mAdapter);
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
