@@ -19,8 +19,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import rohitnahata.mailingsystem.Adapters.PreviousMailsAdapter;
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
-import rohitnahata.mailingsystem.RecyclerAdapters.PreviousMailsAdapter;
 import rohitnahata.mailingsystem.Utils.ItemClickSupport;
 
 

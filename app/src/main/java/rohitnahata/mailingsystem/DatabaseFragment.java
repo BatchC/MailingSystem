@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import rohitnahata.mailingsystem.Adapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
-import rohitnahata.mailingsystem.RecyclerAdapters.StudentDetailsAdapter;
 
 
 /**

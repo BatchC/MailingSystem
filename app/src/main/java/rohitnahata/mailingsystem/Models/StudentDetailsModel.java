@@ -7,10 +7,6 @@ public class StudentDetailsModel {
     private String name;
     private String email_id;
 
-    public StudentDetailsModel() {
-
-    }
-
     public StudentDetailsModel(String id, String name, String email_id, String classroom) {
         this.id = id;
         this.name = name;
@@ -48,15 +44,8 @@ public class StudentDetailsModel {
         return email_id;
     }
 
-//    public void setEmail_id(String email_id) {
-//        this.email_id = email_id;
-//    }
-
     public String getClassroom() {
         return classroom;
     }
 
-//    public void setClassroom(String classroom) {
-//        this.classroom = classroom;
-//    }
 }

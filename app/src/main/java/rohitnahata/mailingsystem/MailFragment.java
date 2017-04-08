@@ -40,6 +40,7 @@ import java.util.Objects;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import rohitnahata.mailingsystem.Adapters.StudentSuggestionAdapter;
 import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
@@ -50,33 +51,33 @@ import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 public class MailFragment extends Fragment {
 
 
-    public AutoCompleteTextView txtSearch;
-    public StudentSuggestionAdapter adapter;
-    public ArrayList<StudentDetailsModel> className;
-    public ArrayList<StudentDetailsModel> studentDetailsModelList;
-    public View view;
-    public EditText editTextSubject;
-    public EditText editTextMessage;
-    public String timeSent;
-    public ArrayList<Uri> filepath = null;
-    public String message;
-    public String subject;
-    public ArrayList<String> strFilePath;
-    public ArrayList<String> strFilePathString;
-    public String[] temp;
-    public ArrayList<String> tempEmail;
-    public String allEmails;
-    public InternetAddress[] recipientAddress;
-    public int emailFieldsUsed;
-    public LinearLayout extraEmailsLayout;
-    public LinearLayout extraAttachmentsLayoutRoot;
-    public LinearLayout extraAttachmentsLayout;
-    public Button addEmail;
-    public ArrayList<PreviousMailModel> previousMailModelList;
+    AutoCompleteTextView txtSearch;
+    StudentSuggestionAdapter adapter;
+    ArrayList<StudentDetailsModel> className;
+    ArrayList<StudentDetailsModel> studentDetailsModelList;
+    View view;
+    EditText editTextSubject;
+    EditText editTextMessage;
+    String timeSent;
+    ArrayList<Uri> filepath = null;
+    String message;
+    String subject;
+    ArrayList<String> strFilePath;
+    ArrayList<String> strFilePathString;
+    String[] temp;
+    ArrayList<String> tempEmail;
+    String allEmails;
+    InternetAddress[] recipientAddress;
+    int emailFieldsUsed;
+    LinearLayout extraEmailsLayout;
+    LinearLayout extraAttachmentsLayoutRoot;
+    LinearLayout extraAttachmentsLayout;
+    Button addEmail;
+    ArrayList<PreviousMailModel> previousMailModelList;
 
 
     public MailFragment() {
-        // Required empty public constructor
+        // Required empty  constructor
     }
 
     @Override
@@ -92,27 +93,7 @@ public class MailFragment extends Fragment {
         });
     }
 
-
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        System.out.println(item.getItemId());
-//
-//        switch(item.getItemId()){
-//            case R.id.attachment:
-//                System.out.println("f3ff44444gf43");
-//                add_attachment();
-//                return true;
-//            case R.id.tp:
-//                System.out.println("aaaaaaaa");
-//            default:
-//                System.out.println("f3ff4gf43");
-//        }
-//        return super.onOptionsItemSelected(item);
-//
-//    }
-
-    public void add_attachment() {
+    void add_attachment() {
         Log.i("blabla","Attach");
         Intent i = new Intent(Intent.ACTION_GET_CONTENT);
         i.putExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, true);
@@ -159,11 +140,10 @@ public class MailFragment extends Fragment {
         extraEmailsLayout = (LinearLayout) view.findViewById(R.id.extraEmailsLayout);
         extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayoutRoot = (LinearLayout) view.findViewById(R.id.attachmentFragementMailRoot);
-//        extraEmailsLayout.setVisibility(View.VISIBLE);
         extraAttachmentsLayout = (LinearLayout) view.findViewById(R.id.attachmentFragementMail);
         Button buttonSend = (Button) view.findViewById(R.id.buttonSend);
         txtSearch = (AutoCompleteTextView) view.findViewById(R.id.editTextEmail);
-        adapter = new StudentSuggestionAdapter(getContext(), R.layout.activity_main, studentDetailsModelListForSuggestions);
+        adapter = new StudentSuggestionAdapter(getContext(), studentDetailsModelListForSuggestions);
         txtSearch.setAdapter(adapter);
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
@@ -200,14 +180,6 @@ public class MailFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-//        System.out.println("Paused");
-
-
-
-    }
 
     @Override
     public void onResume() {
@@ -215,11 +187,11 @@ public class MailFragment extends Fragment {
         extraEmailsLayout.setVisibility(View.VISIBLE);
     }
 
-    public boolean isValidEmail(CharSequence target) {
+    boolean isValidEmail(CharSequence target) {
         return /*!TextUtils.isEmpty(target) &&  */android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 
-    public void sendEmail() {
+    void sendEmail() {
         Log.i("mail", "mailMe");
         //Getting content for email
         SendMail sm;
@@ -254,7 +226,7 @@ public class MailFragment extends Fragment {
         }
     }
 
-    public boolean haveNetworkConnection() {
+    boolean haveNetworkConnection() {
         boolean haveConnectedWifi = false;
         boolean haveConnectedMobile = false;
 
@@ -276,7 +248,7 @@ public class MailFragment extends Fragment {
 
 
     //Send Mail button
-    public void sendMailButton() {
+    void sendMailButton() {
 
         String email = txtSearch.getText().toString().trim();
         subject = editTextSubject.getText().toString().trim();
@@ -450,7 +422,7 @@ public class MailFragment extends Fragment {
         }
     }
 
-    public void save_to_database() {
+    void save_to_database() {
         String recipient, subject, body;
         subject = String.valueOf(editTextSubject.getText());
         body = String.valueOf(editTextMessage.getText());
@@ -472,34 +444,32 @@ public class MailFragment extends Fragment {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if (data.getBooleanExtra(FilePickerActivity.EXTRA_ALLOW_MULTIPLE, true)) {
                 // For JellyBean and above
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    ClipData clip = data.getClipData();
+                ClipData clip = data.getClipData();
 
-                    if (clip != null) {
-                        extraAttachmentsLayoutRoot.setVisibility(View.VISIBLE);
-                        for (int i = 0; i < clip.getItemCount(); i++) {
-                            Uri uri = clip.getItemAt(i).getUri();
-                            filepath.add(uri);
+                if (clip != null) {
+                    extraAttachmentsLayoutRoot.setVisibility(View.VISIBLE);
+                    for (int i = 0; i < clip.getItemCount(); i++) {
+                        Uri uri = clip.getItemAt(i).getUri();
+                        filepath.add(uri);
 //                            filepath=uri;
-                            LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                            TextView tv = new TextView(getContext());
-                            String tp = String.valueOf(uri).substring(7);
-                            tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
-                            tv.setPadding(0, 5, 0, 10);
-                            tv.setLayoutParams(lparams);
-                            tv.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-                            extraAttachmentsLayout.addView(tv);
-                        }
+                        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        TextView tv = new TextView(getContext());
+                        String tp = String.valueOf(uri).substring(7);
+                        tv.setText(tp.substring(tp.lastIndexOf("/")).substring(1));
+                        tv.setPadding(0, 5, 0, 10);
+                        tv.setLayoutParams(lparams);
+                        tv.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                        extraAttachmentsLayout.addView(tv);
                     }
-                    // For Ice Cream Sandwich
                 }
+                // For Ice Cream Sandwich
             }
         }
     }
 
 
-    public void clearFields(int emailField){
+    void clearFields(int emailField) {
         switch (emailField) {
 
             case 1:
@@ -517,56 +487,11 @@ public class MailFragment extends Fragment {
             case 5:
                 ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView5)).setText("");
                 break;
-            case 6:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView6)).setText("");
-                break;
-            case 7:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView7)).setText("");
-                break;
-            case 8:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView8)).setText("");
-                break;
-            case 9:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView9)).setText("");
-                break;
-            case 10:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView10)).setText("");
-                break;
-            case 11:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView11)).setText("");
-                break;
-            case 12:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView12)).setText("");
-                break;
-            case 13:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView13)).setText("");
-                break;
-            case 14:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView14)).setText("");
-                break;
-            case 15:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView15)).setText("");
-                break;
-            case 16:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView16)).setText("");
-                break;
-            case 17:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView17)).setText("");
-                break;
-            case 18:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView18)).setText("");
-                break;
-            case 19:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView19)).setText("");
-                break;
-            case 20:
-                ((AutoCompleteTextView) getView().findViewById(R.id.emailTextView20)).setText("");
-                break;
         }
 
     }
 
-    public String storeAddressInArray(int emailField) {
+    String storeAddressInArray(int emailField) {
         String emailAddress;
         switch (emailField) {
             case 1:
@@ -584,51 +509,6 @@ public class MailFragment extends Fragment {
             case 5:
                 emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView5)).getText());
                 break;
-            case 6:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView6)).getText());
-                break;
-            case 7:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView7)).getText());
-                break;
-            case 8:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView8)).getText());
-                break;
-            case 9:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView9)).getText());
-                break;
-            case 10:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView10)).getText());
-                break;
-            case 11:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView11)).getText());
-                break;
-            case 12:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView12)).getText());
-                break;
-            case 13:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView13)).getText());
-                break;
-            case 14:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView14)).getText());
-                break;
-            case 15:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView15)).getText());
-                break;
-            case 16:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView16)).getText());
-                break;
-            case 17:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView17)).getText());
-                break;
-            case 18:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView18)).getText());
-                break;
-            case 19:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView19)).getText());
-                break;
-            case 20:
-                emailAddress = String.valueOf(((AutoCompleteTextView) getView().findViewById(R.id.emailTextView20)).getText());
-                break;
             default:
                 emailAddress="";
         }
@@ -636,7 +516,7 @@ public class MailFragment extends Fragment {
     }
 
 
-    public void setEmailId(AutoCompleteTextView tv, int emailFieldsUsed) {
+    void setEmailId(AutoCompleteTextView tv, int emailFieldsUsed) {
         switch (emailFieldsUsed) {
             case 1:
                 tv.setId(R.id.emailTextView1);
@@ -652,51 +532,6 @@ public class MailFragment extends Fragment {
                 break;
             case 5:
                 tv.setId(R.id.emailTextView5);
-                break;
-            case 6:
-                tv.setId(R.id.emailTextView6);
-                break;
-            case 7:
-                tv.setId(R.id.emailTextView7);
-                break;
-            case 8:
-                tv.setId(R.id.emailTextView8);
-                break;
-            case 9:
-                tv.setId(R.id.emailTextView9);
-                break;
-            case 10:
-                tv.setId(R.id.emailTextView10);
-                break;
-            case 11:
-                tv.setId(R.id.emailTextView11);
-                break;
-            case 12:
-                tv.setId(R.id.emailTextView12);
-                break;
-            case 13:
-                tv.setId(R.id.emailTextView13);
-                break;
-            case 14:
-                tv.setId(R.id.emailTextView14);
-                break;
-            case 15:
-                tv.setId(R.id.emailTextView15);
-                break;
-            case 16:
-                tv.setId(R.id.emailTextView16);
-                break;
-            case 17:
-                tv.setId(R.id.emailTextView17);
-                break;
-            case 18:
-                tv.setId(R.id.emailTextView18);
-                break;
-            case 19:
-                tv.setId(R.id.emailTextView19);
-                break;
-            case 20:
-                tv.setId(R.id.emailTextView20);
                 break;
 
         }

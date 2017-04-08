@@ -1,4 +1,4 @@
-package rohitnahata.mailingsystem.RecyclerAdapters;
+package rohitnahata.mailingsystem.Adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

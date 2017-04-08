@@ -13,6 +13,8 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import rohitnahata.mailingsystem.Adapters.ViewPagerAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
 
