@@ -20,13 +20,6 @@ public class SplashScreen extends AppCompatActivity {
     private ArrayList<StudentDetailsModel> temp;
     private ArrayList<StudentDetailsModel> className;
 
-//    private FirebaseAuth mAuth;
-//    // [END declare_auth]
-//
-//    // [START declare_auth_listener]
-//    private FirebaseAuth.AuthStateListener mAuthListener;
-//    int flag=0;//to check whether we need to call the Login Activity or directly the Mail Activity
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +32,6 @@ public class SplashScreen extends AppCompatActivity {
         super.onStart();
         className = ((App) this.getApplication()).getClassName();
         studentDetailsModelList = ((App) this.getApplication()).getStudentDetailsModelList();
-//        mAuth = FirebaseAuth.getInstance();
-//        mAuthListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = firebaseAuth.getCurrentUser();
-//                if(user!=null)
-//                    flag=1;
-//            }
-//        };
         new PrefetchData().execute(App.BASE_URL);
     }
 
@@ -63,7 +47,6 @@ public class SplashScreen extends AppCompatActivity {
                     for (DataSnapshot alert : dataSnapshot.getChildren()) {
                         String strClass = alert.getKey();
                         className_add(alert.getKey());
-//                        className.add(alert.getKey());
                         for (DataSnapshot recipient : alert.getChildren()) {
                             String strEmail = (String) recipient.child("email_id").getValue();
                             String strName = (String) recipient.child("student_name").getValue();
@@ -96,16 +79,13 @@ public class SplashScreen extends AppCompatActivity {
             super.onPostExecute(aVoid);
 
             Intent i;
-//            if(flag==0)
             i = new Intent(SplashScreen.this, Login.class);
-//            else
-//                i=new Intent(SplashScreen.this,MainActivity.class);
             startActivity(i);
             SplashScreen.this.finish();
         }
 
 
-        public void deleteData() {
+        void deleteData() {
             if (studentDetailsModelList != null) {
                 studentDetailsModelList.clear();
             }
@@ -114,7 +94,7 @@ public class SplashScreen extends AppCompatActivity {
             }
         }
 
-        public void addData(String n1, String n2, String n3, String n4) {
+        void addData(String n1, String n2, String n3, String n4) {
             StudentDetailsModel studentDetailsModel = new StudentDetailsModel(n1, n2, n3, n4);
             studentDetailsModelList.add(studentDetailsModel);
         }

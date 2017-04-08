@@ -16,7 +16,7 @@ import rohitnahata.mailingsystem.Models.PreviousMailModel;
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
 
 
-public class App extends android.app.Application {
+class App extends android.app.Application {
 
     public static final String BASE_URL = "https://mailing-system-cbbc1.firebaseio.com/";
     private static final String PREVIOUS_MAIL_MODEL_LIST = "previousMailList";

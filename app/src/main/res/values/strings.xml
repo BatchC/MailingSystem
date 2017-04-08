@@ -34,4 +34,5 @@
     <string name="logout">Logout</string>
     <string name="splashscreen">splashScreen</string>
     <string name="mailing_system">Mailing System</string>
+    <string name="cancel_attachment">Cancel Attachment</string>
 </resources>

@@ -17,9 +17,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import rohitnahata.mailingsystem.Adapters.StudentDetailsAdapter;
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
-import rohitnahata.mailingsystem.RecyclerAdapters.StudentDetailsAdapter;
-import rohitnahata.mailingsystem.Utils.DividerItemDecoration;
 
 
 /**
@@ -63,7 +62,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(getContext()));
         recyclerView.setAdapter(mAdapter);
     }
 

@@ -1,6 +1,7 @@
-package rohitnahata.mailingsystem;
+package rohitnahata.mailingsystem.Adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import rohitnahata.mailingsystem.Models.StudentDetailsModel;
+import rohitnahata.mailingsystem.R;
 
-class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
+public class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
 
     private final Context context;
-    private final int resource;
-    private final int textViewResourceId;
     private final List<StudentDetailsModel> items;
     private final List<StudentDetailsModel> tempItems;
     private final List<StudentDetailsModel> suggestions;
@@ -68,18 +68,17 @@ class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
         }
     };
 
-    public StudentSuggestionAdapter(Context context, int resource, List<StudentDetailsModel> items) {
+    public StudentSuggestionAdapter(Context context, List<StudentDetailsModel> items) {
         super(context, R.layout.activity_main, R.id.lbl_name, items);
         this.context = context;
-        this.resource = R.layout.activity_main;
-        this.textViewResourceId = R.id.lbl_name;
         this.items = items;
         tempItems = new ArrayList<>(items); // this makes the difference.
         suggestions = new ArrayList<>();
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -94,6 +93,7 @@ class StudentSuggestionAdapter extends ArrayAdapter<StudentDetailsModel> {
         return view;
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
         return nameFilter;
